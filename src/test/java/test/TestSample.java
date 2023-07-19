@@ -35,29 +35,6 @@ public class TestSample extends Base{
 	@BeforeTest
 	public void setUp()
 	{
-//		base = new Base();
-//		commonActions = new AppCommonActions();
-//		command = new OptimizedCommands();
-//		
-//		base.initialize();
-//		commonActions.loginToSalesForce(driver);
-//		commonActions.navigateToNJChoice(driver);
-//		
-//		njChoicePage = PageFactory.initElements(driver, NJChoicePage.class);
-//		command.waitTillElementDisplayed(driver, njChoicePage.CreateNJChoiceAssessmentHeader, 60);
-//		
-//		// Fill Up Section A
-//		njChoicePage.referralSectionA.click();
-//		referralPage = PageFactory.initElements(driver, ReferralPage.class);
-//		referralPage.enterAllMandatoryFields();
-//		referralPage.SaveAndNextButton.click();
-//		commonActions.handleAlertsAfterSaveReferralSection(driver, command);
-		
-	}
-	
-	@Test(dataProvider="CardioCAP")
-	void capsCardio(String ij2c, String ij2e, String ij3, String ij8a, String ij8b, String output)
-	{
 		base = new Base();
 		commonActions = new AppCommonActions();
 		command = new OptimizedCommands();
@@ -76,8 +53,11 @@ public class TestSample extends Base{
 		referralPage.SaveAndNextButton.click();
 		commonActions.handleAlertsAfterSaveReferralSection(driver, command);
 		
-		///////////////////////////////////////////////////////////////
-		
+	}
+	
+	@Test(dataProvider="CardioCAP")
+	void capsCardio(String ij2c, String ij2e, String ij3, String ij8a, String ij8b, String output)
+	{	
 		njChoicePage.njChoiceAssessmentTab.click();
 		
 		njChoicePage.healthConditionsSectionJ.click();
@@ -98,14 +78,25 @@ public class TestSample extends Base{
 		
 		commonActions.handleAlertsAfterSaveOrUpdateInputsSection(driver, command);
 		
-		njChoicePage.capsAndAlgoTab.click();
+		// Wait for 5 secs
+		try{Thread.sleep(5000);}catch(Exception e) {}
+				
+		if(njChoicePage.capsAndAlgoTab.getAttribute("aria-selected").equals("false"))
+			njChoicePage.capsAndAlgoTab.click();
 		
 		// Wait for 8 secs
-		try{Thread.sleep(5000);}catch(Exception e) {}
-		
-		
+		try{Thread.sleep(8000);}catch(Exception e) {}
 		
 		capsAlgoPage = PageFactory.initElements(driver, CapsAndAlgoValuesPage.class);
+		
+		command.waitForAnyAlertAndAccept(driver, 20);
+		
+		capsAlgoPage.refreshButton.click();
+		
+		command.waitForAnyAlertAndAccept(driver, 20);
+		
+		// Wait for 3 secs
+		try{Thread.sleep(3000);}catch(Exception e) {}
 		
 		String cCardioOutputActual = capsAlgoPage.cCARDIOValue.getText();
 		
@@ -120,25 +111,6 @@ public class TestSample extends Base{
 	@Test(dataProvider="DepressionScale")
 	void scaleDRSDepression(String ie1a, String ie1b, String ie1c, String ie1d, String ie1e, String ie1f, String ie1g, String output)
 	{
-		base = new Base();
-		commonActions = new AppCommonActions();
-		command = new OptimizedCommands();
-		
-		base.initialize();
-		commonActions.loginToSalesForce(driver);
-		commonActions.navigateToNJChoice(driver);
-		
-		njChoicePage = PageFactory.initElements(driver, NJChoicePage.class);
-		command.waitTillElementDisplayed(driver, njChoicePage.CreateNJChoiceAssessmentHeader, 60);
-		
-		// Fill Up Section A
-		njChoicePage.referralSectionA.click();
-		referralPage = PageFactory.initElements(driver, ReferralPage.class);
-		referralPage.enterAllMandatoryFields();
-		referralPage.SaveAndNextButton.click();
-		commonActions.handleAlertsAfterSaveReferralSection(driver, command);
-		
-		///////////////////////////////////////////////////////////////
 		
 		njChoicePage.njChoiceAssessmentTab.click();
 		
@@ -162,14 +134,25 @@ public class TestSample extends Base{
 		
 		commonActions.handleAlertsAfterSaveOrUpdateInputsSection(driver, command);
 		
-		njChoicePage.capsAndAlgoTab.click();
+		// Wait for 5 secs
+		try{Thread.sleep(5000);}catch(Exception e) {}
+				
+		if(njChoicePage.capsAndAlgoTab.getAttribute("aria-selected").equals("false"))
+			njChoicePage.capsAndAlgoTab.click();
 		
 		// Wait for 8 secs
-		try{Thread.sleep(5000);}catch(Exception e) {}
-		
-		
+		try{Thread.sleep(8000);}catch(Exception e) {}
 		
 		capsAlgoPage = PageFactory.initElements(driver, CapsAndAlgoValuesPage.class);
+		
+		command.waitForAnyAlertAndAccept(driver, 20);
+		
+		capsAlgoPage.refreshButton.click();
+		
+		command.waitForAnyAlertAndAccept(driver, 20);
+		
+		// Wait for 3 secs
+		try{Thread.sleep(3000);}catch(Exception e) {}
 		
 		String sDRSOutputActual = capsAlgoPage.sDRSValue.getText();
 		
@@ -184,25 +167,6 @@ public class TestSample extends Base{
 	@Test(dataProvider="SmokingAndDrinkingScale")
 	void capsCAddSmokingAndDrinking(String ij8a, String ij8b, String output)
 	{
-		base = new Base();
-		commonActions = new AppCommonActions();
-		command = new OptimizedCommands();
-		
-		base.initialize();
-		commonActions.loginToSalesForce(driver);
-		commonActions.navigateToNJChoice(driver);
-		
-		njChoicePage = PageFactory.initElements(driver, NJChoicePage.class);
-		command.waitTillElementDisplayed(driver, njChoicePage.CreateNJChoiceAssessmentHeader, 60);
-		
-		// Fill Up Section A
-		njChoicePage.referralSectionA.click();
-		referralPage = PageFactory.initElements(driver, ReferralPage.class);
-		referralPage.enterAllMandatoryFields();
-		referralPage.SaveAndNextButton.click();
-		commonActions.handleAlertsAfterSaveReferralSection(driver, command);
-		
-		///////////////////////////////////////////////////////////////
 		
 		njChoicePage.njChoiceAssessmentTab.click();
 		
@@ -222,18 +186,30 @@ public class TestSample extends Base{
 		
 		commonActions.handleAlertsAfterSaveOrUpdateInputsSection(driver, command);
 		
-		njChoicePage.capsAndAlgoTab.click();
+		// Wait for 5 secs
+		try{Thread.sleep(5000);}catch(Exception e) {}
+				
+		if(njChoicePage.capsAndAlgoTab.getAttribute("aria-selected").equals("false"))
+			njChoicePage.capsAndAlgoTab.click();
 		
 		// Wait for 8 secs
-		try{Thread.sleep(5000);}catch(Exception e) {}
-		
-		
+		try{Thread.sleep(8000);}catch(Exception e) {}
 		
 		capsAlgoPage = PageFactory.initElements(driver, CapsAndAlgoValuesPage.class);
+		
+		command.waitForAnyAlertAndAccept(driver, 20);
+		
+		capsAlgoPage.refreshButton.click();
+		
+		command.waitForAnyAlertAndAccept(driver, 20);
+		
+		// Wait for 3 secs
+		try{Thread.sleep(3000);}catch(Exception e) {}
 		
 		String cAddOutputActual = capsAlgoPage.CAddValue.getText();
 		
 		Assert.assertTrue(output.startsWith(cAddOutputActual));
+		
 		
 		njChoicePage.njChoiceAssessmentTab.click();
 		

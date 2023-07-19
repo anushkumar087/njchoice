@@ -26,4 +26,7 @@ public class CapsAndAlgoValuesPage {
 	
 	@FindBy(xpath="//h1[contains(text(),'CAdd Value')]/b")
 	public WebElement CAddValue;
+	
+	@FindBy(xpath="//lightning-tab[contains(@class,'slds-show')]//button[text()='Refresh']")
+	public WebElement refreshButton;
 }
