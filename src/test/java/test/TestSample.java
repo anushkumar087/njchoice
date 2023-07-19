@@ -250,7 +250,7 @@ public class TestSample extends Base{
 	@AfterTest
 	public void tearDown()
 	{
-//		driver.quit();
+		driver.quit();
 	}
 
 }
