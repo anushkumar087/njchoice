@@ -37,6 +37,39 @@ public class MoodAndBehaviorPage {
 	@FindBy(xpath="//label[contains(text(),'E1g')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iE1g;
 	
+	@FindBy(xpath="//label[contains(text(),'E1i')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE1i;
+	
+	@FindBy(xpath="//label[contains(text(),'E1k')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE1k;
+	
+	@FindBy(xpath="//label[contains(text(),'E2a')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE2a;
+	
+	@FindBy(xpath="//label[contains(text(),'E2b')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE2b;
+	
+	@FindBy(xpath="//label[contains(text(),'E2c')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE2c;
+	
+	@FindBy(xpath="//label[contains(text(),'E3a')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE3a;
+	
+	@FindBy(xpath="//label[contains(text(),'E3b')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE3b;
+	
+	@FindBy(xpath="//label[contains(text(),'E3c')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE3c;
+	
+	@FindBy(xpath="//label[contains(text(),'E3d')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE3d;
+	
+	@FindBy(xpath="//label[contains(text(),'E3e')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE3e;
+	
+	@FindBy(xpath="//label[contains(text(),'E3f')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE3f;
+	
 	@FindBy(xpath="//span[contains(text(),'MOOD AND BEHAVIOR')]//ancestor::div[@part='body']//button[@type='submit' and text()='Save & Next']")
 	public WebElement SaveAndNextButton;
 	
@@ -66,8 +99,8 @@ public class MoodAndBehaviorPage {
 		{
 			if(moodAndBehavior.SaveAndNextButton.isDisplayed())
 				moodAndBehavior.SaveAndNextButton.click();
-//			else 
-//				healthConditions.UpdateButton.click();
+			else
+				moodAndBehavior.UpdateButton.click();
 		}
 		catch(Exception e)
 		{

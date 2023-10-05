@@ -26,7 +26,7 @@ public class Base {
 	
 	public static WebDriver driver;
 	
-	public Base()
+	public Base(String dataFile)
 	{
 		try 
         {
@@ -34,7 +34,7 @@ public class Base {
             FileInputStream file = new FileInputStream(configFile);
             prop.load(file);
             
-            filePath = new File(DataFile.MasterDataFile);
+            filePath = new File(dataFile);
     		
         } 
         catch (FileNotFoundException e) 
@@ -49,7 +49,9 @@ public class Base {
 	public void initialize()
     {
 		ChromeOptions chromeOptions = new ChromeOptions();
-    	WebDriverManager.chromedriver().setup();
+		chromeOptions.addArguments("--disable-notifications");
+		// Commenting the below line due to incompatibility with Chrome 116
+		WebDriverManager.chromedriver().setup();
     	driver = new ChromeDriver(chromeOptions);
 
     	String url = prop.getProperty("loginURL");

@@ -3,12 +3,14 @@ package pagefactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import util.OptimizedCommands;
 import util.DataFile;
 
 public class ReferralPage {
 	
+	public static int startingReferencePositionOfNJChoiceSections=0;
 	private OptimizedCommands command;
 	private WebDriver driver;
 	
@@ -19,10 +21,10 @@ public class ReferralPage {
 	}
 	
 	
-	@FindBy(xpath ="//label[contains(text(),'REFERRAL DATE')]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'REFERRAL DATE')]/following-sibling::input")
 	public WebElement referralDate;
 	
-	@FindBy(xpath ="//label[contains(text(),'REFERRAL ENTRY DATE')]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'REFERRAL ENTRY DATE')]/following-sibling::input")
 	public WebElement referralEntryDate;
 	
 	@FindBy(xpath ="//label[contains(text(),'REFERRAL/ASSESSMENT SOURCE')]/ancestor::div[1]/following-sibling::*//input")
@@ -46,7 +48,7 @@ public class ReferralPage {
 	@FindBy(xpath="//label[contains(text(),'GENDER IDENTITY')]/parent::div/..//input")
 	public WebElement genderIdentity;
 	
-	@FindBy(xpath="//label[contains(text(),'BIRTHDATE')]/following-sibling::*//input")
+	@FindBy(xpath="//label[contains(text(),'BIRTHDATE')]/following-sibling::input")
 	public WebElement birthdate;
 	
 	@FindBy(xpath="//label[contains(text(),'Social Security Number')]/following-sibling::*//input[@pattern]")
@@ -85,9 +87,15 @@ public class ReferralPage {
 	
 	public void enterAllMandatoryFields()
 	{
-		command.sendKeysWithBuffer(referralDate, DataFile.ReferralDateValue);
+		NJChoicePage njChoicePage = PageFactory.initElements(driver, NJChoicePage.class);
 		
-		command.sendKeysWithBuffer(referralEntryDate, DataFile.ReferralEntryDateValue);
+		startingReferencePositionOfNJChoiceSections = njChoicePage.njChoiceAssessmentSections.getLocation().getY();
+		
+		// command.sendKeysWithBuffer(referralDate, DataFile.ReferralDateValue);
+		command.selectPresentDate(referralDate, DataFile.ReferralDateValue, driver);
+		
+		// command.sendKeysWithBuffer(referralEntryDate, DataFile.ReferralEntryDateValue);
+		// command.selectPresentDate(referralEntryDate, DataFile.ReferralEntryDateValue, driver);
 		
 		command.sendKeysWithBuffer(referralAssessmentSource, DataFile.ReferralAssessmentSourceValue);
 		
@@ -103,7 +111,8 @@ public class ReferralPage {
 		
 		command.sendKeysWithBuffer(genderIdentity, DataFile.GenderIdentityValue);
 		
-		command.sendKeysWithBuffer(birthdate, DataFile.BirthdateValue);
+		// command.sendKeysWithBuffer(birthdate, DataFile.BirthdateValue);
+		command.selectPresentDate(birthdate, DataFile.BirthdateValue, driver);
 		
 		command.sendKeysWithBuffer(socialSecurityNumber, DataFile.SocialSecurityNumberValue);
 		

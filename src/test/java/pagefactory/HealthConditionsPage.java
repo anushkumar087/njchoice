@@ -18,14 +18,38 @@ public class HealthConditionsPage {
 		command = new OptimizedCommands();
 	}
 	
+	@FindBy(xpath ="//label[contains(text(),'J1')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ1;
+	
 	@FindBy(xpath ="//label[contains(text(),'J2c')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2c;
 	
 	@FindBy(xpath ="//label[contains(text(),'J2e')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2e;
 	
+	@FindBy(xpath ="//label[contains(text(),'J2k')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2k;
+	
+	@FindBy(xpath ="//label[contains(text(),'J2l')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2l;
+	
+	@FindBy(xpath ="//label[contains(text(),'J2n')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2n;
+	
+	@FindBy(xpath ="//label[contains(text(),'J2q')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2q;
+	
 	@FindBy(xpath ="//label[contains(text(),'J3')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ3;
+	
+	@FindBy(xpath ="//label[contains(text(),'J5a')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ5a;
+	
+	@FindBy(xpath ="//label[contains(text(),'J5b')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ5b;
+	
+	@FindBy(xpath ="//label[contains(text(),'J6c')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ6c;
 	
 	@FindBy(xpath ="//label[contains(text(),'J8a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ8a;
@@ -61,8 +85,8 @@ public class HealthConditionsPage {
 		{
 			if(healthConditions.SaveAndNextButton.isDisplayed())
 				healthConditions.SaveAndNextButton.click();
-//			else 
-//				healthConditions.UpdateButton.click();
+			else 
+				healthConditions.UpdateButton.click();
 		}
 		catch(Exception e)
 		{

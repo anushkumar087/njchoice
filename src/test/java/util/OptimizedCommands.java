@@ -6,15 +6,21 @@ import java.util.function.Function;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import pagefactory.NJChoicePage;
+import pagefactory.ReferralPage;
 
 public class OptimizedCommands {
 	
@@ -119,5 +125,40 @@ public class OptimizedCommands {
 		}
 		return null;
 	}
+	
+	public void waitAfterNavigatingToCapsAndAlgoTab()
+	{
+		// Wait for 8 secs
+		try{Thread.sleep(8000);}catch(Exception e) {}
+	}
+	
+	public void waitAfterClickingRefreshOnCapsAndAlgoTab()
+	{
+		// Wait for 3 secs
+		try{Thread.sleep(5000);}catch(Exception e) {}
+	}
+
+	public void selectPresentDate(WebElement dateField, String dateValue, WebDriver driver) {
+		NJChoicePage njChoicePage = PageFactory.initElements(driver, NJChoicePage.class);		
+		int currentPositionOfNJChoiceSections = njChoicePage.njChoiceAssessmentSections.getLocation().getY();
+		int pageTopPosY = currentPositionOfNJChoiceSections - ReferralPage.startingReferencePositionOfNJChoiceSections;
+		try{Thread.sleep(3000);}catch(Exception e) {}
+		int width = dateField.getSize().getWidth();
+		int dateXpos = dateField.getLocation().getX();
+		int dateYpos = dateField.getLocation().getY();
+		Actions actions = new Actions(driver);
+		
+		System.out.println("dateXpos: "+dateXpos+", dateYpos: "+(dateYpos-pageTopPosY)+", pageTopPosY: "+(pageTopPosY));
+		
+//		actions.moveByOffset(dateXpos, dateYpos-pageTopPosY).build().perform();
+		actions.moveToElement(dateField).build().perform();
+		actions.moveByOffset(width/2, 0).build().perform();
+		actions.moveByOffset(-5, 0).build().perform();
+		actions.click().build().perform();
+		try{Thread.sleep(2000);}catch(Exception e) {}
+		actions.keyDown(Keys.ENTER).keyUp(Keys.ENTER).build().perform();
+		
+	}
+	
 
 }

@@ -1,11 +1,170 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="MyArtifactSuite"
-       thread-count="3"
-       parallel="methods">
-  <test name="AllSuites">
-    <packages>
-      <package name=".*"/>
-    </packages>
-  </test>
+<suite name="NJChoice" verbose="1" preserve-order="true" parallel="false" thread-count="1">
+	<listeners>  
+		<listener class-name="listener.ListenerTest"/>  
+	</listeners>
+    <test name="ScaleFalls">
+         <classes>
+             <class name="test.ScaleFalls"/>
+          </classes>
+     </test>
+     <test name="ScaleAggressiveBehavior">
+         <classes>
+             <class name="test.ScaleAggressiveBehavior"/>
+          </classes>
+     </test>
+     <test name="CapsFalls">
+         <classes>
+             <class name="test.CapsFalls"/>
+          </classes>
+     </test>
+     <test name="ScaleIADLCapacityHierarchy">
+         <classes>
+             <class name="test.ScaleIADLCapacityHierarchy"/>
+          </classes>
+     </test>
+     <test name="CapsDelirium">
+         <classes>
+             <class name="test.CapsDelirium"/>
+          </classes>
+     </test>
+     <test name="CapsCardioRespiratory">
+         <classes>
+             <class name="test.CapsCardioRespiratory"/>
+          </classes>
+     </test>
+     <test name="CapsDehydration">
+         <classes>
+             <class name="test.CapsDehydration"/>
+          </classes>
+     </test>
+     <test name="CapsPain">
+         <classes>
+             <class name="test.CapsPain"/>
+          </classes>
+     </test>
+     <test name="ScaleClinicianRatedMood">
+         <classes>
+             <class name="test.ScaleClinicianRatedMood"/>
+          </classes>
+     </test>
+     <test name="ScaleCommunication">
+         <classes>
+             <class name="test.ScaleCommunication"/>
+          </classes>
+     </test>
+     <test name="ScaleDepressionSDRS">
+         <classes>
+             <class name="test.ScaleDepressionSDRS"/>
+          </classes>
+     </test>
+     <test name="ScalePain">
+         <classes>
+             <class name="test.ScalePain"/>
+          </classes>
+     </test>
+     <test name="ScaleSelfReportMood">
+         <classes>
+             <class name="test.ScaleSelfReportMood"/>
+          </classes>
+     </test>
+     <test name="ScaleSmokingAndDrinking">
+         <classes>
+             <class name="test.ScaleSmokingAndDrinking"/>
+          </classes>
+     </test>
+     <test name="CapsPressureUlcer">
+         <classes>
+             <class name="test.CapsPressureUlcer"/>
+          </classes>
+     </test>
+     <test name="ScaleCognitivePerformance">
+         <classes>
+             <class name="test.ScaleCognitivePerformance"/>
+          </classes>
+     </test>
+     <test name="ScalePressureUlcerRating">
+         <classes>
+             <class name="test.ScalePressureUlcerRating"/>
+          </classes>
+     </test>
+     <test name="CapsFeedingTube">
+         <classes>
+             <class name="test.CapsFeedingTube"/>
+          </classes>
+     </test>
+     <test name="CapsBehavior">
+         <classes>
+             <class name="test.CapsBehavior"/>
+          </classes>
+     </test>
+     <test name="ScaleDeafblindSeverityIndex">
+         <classes>
+             <class name="test.ScaleDeafblindSeverityIndex"/>
+          </classes>
+     </test>
+     <test name="ScaleCompositeMood">
+         <classes>
+             <class name="test.ScaleCompositeMood"/>
+          </classes>
+     </test>
+     <test name="CapsPhysicalActivityPromotion">
+         <classes>
+             <class name="test.CapsPhysicalActivityPromotion"/>
+          </classes>
+     </test>
+     <test name="ScaleCognitivePerformanceV2">
+         <classes>
+             <class name="test.ScaleCognitivePerformanceV2"/>
+          </classes>
+     </test>
+     <test name="ScaleADLHierarchy">
+         <classes>
+             <class name="test.ScaleADLHierarchy"/>
+          </classes>
+     </test>
+     <test name="CapsCommunication">
+         <classes>
+             <class name="test.CapsCommunication"/>
+          </classes>
+     </test>
+     
+     <test name="ScaleADLSF">
+         <classes>
+             <class name="test.ScaleADLSF"/>
+          </classes>
+     </test>
+     
+     <test name="ScaleADLLF">
+         <classes>
+             <class name="test.ScaleADLLF"/>
+          </classes>
+     </test>
+     <test name="ScalePain1">
+         <classes>
+             <class name="test.ScalePain1"/>
+          </classes>
+     </test>
+     <test name="ScaleBodyMassIndex">
+         <classes>
+             <class name="test.ScaleBodyMassIndex"/>
+          </classes>
+     </test>
+     
+     <test name="ScaleFunctionalHierarchy">
+         <classes>
+             <class name="test.ScaleFunctionalHierarchy"/>
+          </classes>
+     </test>
+     <test name="CapsNutrition">
+         <classes>
+             <class name="test.CapsNutrition"/>
+          </classes>
+     </test>
+     <test name="CapsMood">
+         <classes>
+             <class name="test.CapsMood"/>
+          </classes>
+     </test>
 </suite>

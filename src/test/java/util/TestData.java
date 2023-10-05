@@ -21,12 +21,12 @@ import base.Base;
 
 public class TestData {
 	
-	public static Object[][] getRequiredDataFromMasterSheet(String[] inputs, String output) throws IOException
+	public static Object[][] getRequiredDataFromMasterSheet(String[] inputs, String output, String filePathToRead) throws IOException
 	{
 		Object[][] testDataCollection = null;
 		Object[][] testDataCollectionComp = null;
 
-		Workbook wb= WorkbookFactory.create(Base.filePath); 
+		Workbook wb= WorkbookFactory.create(new File(filePathToRead)); 
 
 		Sheet sheet = wb.getSheetAt(0);
 		
@@ -73,7 +73,10 @@ public class TestData {
 						{
 							try
 							{
-								testDataCollectionComp[rowCount-1][i] = Integer.toString((int)cell.getNumericCellValue());
+								if(cell.getNumericCellValue()%1==0.0)
+									testDataCollectionComp[rowCount-1][i] = Integer.toString((int)cell.getNumericCellValue());
+								else
+									testDataCollectionComp[rowCount-1][i] = Double.toString(cell.getNumericCellValue());
 							}
 							catch(IllegalStateException e)
 							{

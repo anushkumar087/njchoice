@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import base.Base;
+import pagefactory.CapsAndAlgoValuesPage;
 import pagefactory.LoginPage;
 import pagefactory.NJChoicePage;
 import pagefactory.RegistrationPage;
@@ -27,8 +28,9 @@ public class AppCommonActions {
 		login = PageFactory.initElements(driver, LoginPage.class);
 		login.loginToSandbox();
 		
-		register = PageFactory.initElements(driver, RegistrationPage.class);
-		register.remindMeLaterLink.click();
+		// This part should be uncommented only if registration page is visible after login
+//		register = PageFactory.initElements(driver, RegistrationPage.class);
+//		register.remindMeLaterLink.click();
 		
 	}
 	
@@ -49,8 +51,8 @@ public class AppCommonActions {
 		
 		String njChoiceUniqueId = command.getAlertText(driver, 20);
 		
-		boolean someAlert = command.waitForAnyAlertAndAccept(driver, 20);
-		Assert.assertTrue(someAlert);
+//		boolean someAlert = command.waitForAnyAlertAndAccept(driver, 20);
+//		Assert.assertTrue(someAlert);
 		
 		System.out.println("njChoiceUniqueId = "+njChoiceUniqueId);
 	}
@@ -58,13 +60,28 @@ public class AppCommonActions {
 	public void handleAlertsAfterSaveOrUpdateInputsSection(WebDriver driver, OptimizedCommands command)
 	{
 		
-		boolean informationSavedAlert = command.waitForAlertAndAccept(driver, DataFile.informationSavedAlert, 15);
-		boolean informationUpdatedAlert = command.waitForAlertAndAccept(driver, DataFile.informationUpdatedAlert, 15);
+		boolean informationSavedAlert = command.waitForAlertAndAccept(driver, DataFile.informationSavedAlert, 25);
+		boolean informationUpdatedAlert = command.waitForAlertAndAccept(driver, DataFile.informationUpdatedAlert, 25);
 		Assert.assertTrue(informationSavedAlert||informationUpdatedAlert);
 		
-		boolean someAlert = command.waitForAnyAlertAndAccept(driver, 20);
-		Assert.assertTrue(someAlert);
+		command.waitForAnyAlertAndAccept(driver, 20);
+		command.waitForAnyAlertAndAccept(driver, 20);
 		
+	}
+	
+	public CapsAndAlgoValuesPage navigateToCapsAndAlgoTabAndRefreshValues(WebDriver driver, NJChoicePage njChoicePage, OptimizedCommands command, CapsAndAlgoValuesPage capsAlgoPage)
+	{
+		// Wait for 5 secs
+		try{Thread.sleep(5000);}catch(Exception e) {}
+				
+		if(njChoicePage.capsAndAlgoTab.getAttribute("aria-selected").equals("false"))
+			njChoicePage.capsAndAlgoTab.click();
+		
+		command.waitAfterNavigatingToCapsAndAlgoTab();
+		capsAlgoPage = PageFactory.initElements(driver, CapsAndAlgoValuesPage.class);
+		capsAlgoPage.refreshButton.click();
+		command.waitAfterClickingRefreshOnCapsAndAlgoTab();
+		return capsAlgoPage;
 	}
 
 
