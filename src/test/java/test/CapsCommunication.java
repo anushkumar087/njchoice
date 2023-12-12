@@ -1,6 +1,7 @@
 package test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterTest;
@@ -98,7 +99,9 @@ public class CapsCommunication extends Base{
 	public static Object[][] getTestDataCommunicationCaps() throws IOException
 	{
 		String[] requiredInputs = IOMapping.getCommunicationCapsInputs();
+		System.out.println("Inputs: =========== "+Arrays.toString(requiredInputs));
 		String output = IOMapping.getCommunicationCapsOutput();
+		System.out.println("Output: =========== "+output);
 		Object[][] testData = TestData.getRequiredDataFromMasterSheet(requiredInputs, output, DataFile.CapsCommunication_DataFile);
 		return testData;
 		

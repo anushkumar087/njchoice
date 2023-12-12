@@ -84,6 +84,26 @@ public class ReferralPage {
 	@FindBy(xpath="//span[contains(text(),'REFERRAL')]//ancestor::div[@part='body']//button[@type='submit' and text()='Save & Next']")
 	public WebElement SaveAndNextButton;
 	
+	@FindBy(xpath="//span[contains(text(),'REFERRAL')]//ancestor::div[@part='body']//button[@type='submit' and text()='Update']")
+	public WebElement UpdateButton;
+	
+	
+	
+	public void saveOrUpdateAfterEnteringRequiredFields(ReferralPage referralPage)
+	{
+		try 
+		{
+			if(referralPage.SaveAndNextButton.isDisplayed())
+				referralPage.SaveAndNextButton.click();
+			else
+				referralPage.UpdateButton.click();
+		}
+		catch(Exception e)
+		{
+			referralPage.UpdateButton.click();
+		}
+	}
+	
 	
 	public void enterAllMandatoryFields()
 	{

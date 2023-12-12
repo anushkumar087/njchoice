@@ -36,6 +36,9 @@ public class CommunicationAndVisionPage {
 	@FindBy(xpath ="//label[contains(text(),'C4')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iC4;
 	
+	@FindBy(xpath ="//label[contains(text(),'C5')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iC5;
+	
 	@FindBy(xpath ="//label[contains(text(),'D1')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iD1;
 	

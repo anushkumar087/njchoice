@@ -69,13 +69,13 @@ public class CapsNutrition extends Base{
 	
 	
 	@Test(dataProvider="NutritionCap", priority=31)
-	void capNutrition(String iK1a, String iK1b, String iJ6c, String output)
+	void capNutrition(String iJ6c, String iK1a, String iK1b, String output)
 	{
 		Reusables.setIOMapping(IOMapping.getNutritionCapInputs(),IOMapping.getNutritionCapOutput(),new Object(){}.getClass().getEnclosingMethod().getName());
 		
 		njChoicePage.njChoiceAssessmentTab.click();
 		
-		// Enter Section C and D
+		// Enter Section K
 		njChoicePage.oralAndNutritionalStatusSectionKAndL.click();
 		
 		oralAndNutritionalStatusPage = PageFactory.initElements(driver, OralAndNutritionalStatusPage.class);

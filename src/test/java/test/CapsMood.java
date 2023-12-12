@@ -68,8 +68,9 @@ public class CapsMood extends Base {
 		Reusables.setIOMapping(IOMapping.getMoodCapInputs(),IOMapping.getMoodCapOutput(),new Object(){}.getClass().getEnclosingMethod().getName());
 		
 		njChoicePage.njChoiceAssessmentTab.click();
-		njChoicePage.moodAndBehaviorSectionE.click();
 		
+		// Go to section E and enter required values 
+		njChoicePage.moodAndBehaviorSectionE.click();
 		moodAndBehavior = PageFactory.initElements(driver, MoodAndBehaviorPage.class);
 		
 		moodAndBehavior.clickEditButtonIfDisplayed(moodAndBehavior);

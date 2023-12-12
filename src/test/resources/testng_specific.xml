@@ -4,61 +4,7 @@
 	<listeners>  
 		<listener class-name="listener.ListenerTest"/>  
 	</listeners>
-	<test name="ScaleFalls">
-         <classes>
-             <class name="test.ScaleFalls"/>
-          </classes>
-     </test>
-     <test name="ScaleSmokingAndDrinking">
-         <classes>
-             <class name="test.ScaleSmokingAndDrinking"/>
-          </classes>
-     </test>
-     <test name="CapsPressureUlcer">
-         <classes>
-             <class name="test.CapsPressureUlcer"/>
-          </classes>
-     </test>
-     <test name="ScaleCognitivePerformance">
-         <classes>
-             <class name="test.ScaleCognitivePerformance"/>
-          </classes>
-     </test>
-     <test name="ScalePressureUlcerRating">
-         <classes>
-             <class name="test.ScalePressureUlcerRating"/>
-          </classes>
-     </test>
-     <test name="CapsFeedingTube">
-         <classes>
-             <class name="test.CapsFeedingTube"/>
-          </classes>
-     </test>
-     <test name="CapsBehavior">
-         <classes>
-             <class name="test.CapsBehavior"/>
-          </classes>
-     </test>
-     <test name="ScaleDeafblindSeverityIndex">
-         <classes>
-             <class name="test.ScaleDeafblindSeverityIndex"/>
-          </classes>
-     </test>
-     <test name="ScaleCompositeMood">
-         <classes>
-             <class name="test.ScaleCompositeMood"/>
-          </classes>
-     </test>
-     <test name="CapsPhysicalActivityPromotion">
-         <classes>
-             <class name="test.CapsPhysicalActivityPromotion"/>
-          </classes>
-     </test>
-     <test name="ScaleCognitivePerformanceV2">
-         <classes>
-             <class name="test.ScaleCognitivePerformanceV2"/>
-          </classes>
-     </test>
+	
      <test name="ScaleADLHierarchy">
          <classes>
              <class name="test.ScaleADLHierarchy"/>
@@ -69,7 +15,6 @@
              <class name="test.CapsCommunication"/>
           </classes>
      </test>
-     
      <test name="ScaleADLSF">
          <classes>
              <class name="test.ScaleADLSF"/>
@@ -89,17 +34,6 @@
      <test name="ScaleBodyMassIndex">
          <classes>
              <class name="test.ScaleBodyMassIndex"/>
-          </classes>
-     </test>
-     
-     <test name="ScaleFunctionalHierarchy">
-         <classes>
-             <class name="test.ScaleFunctionalHierarchy"/>
-          </classes>
-     </test>
-     <test name="CapsNutrition">
-         <classes>
-             <class name="test.CapsNutrition"/>
           </classes>
      </test>
 </suite>

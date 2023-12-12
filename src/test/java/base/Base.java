@@ -59,8 +59,8 @@ public class Base {
     	
     	driver.manage().window().maximize();
     	driver.manage().deleteAllCookies();
-    	driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-    	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
+    	driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(80));
+    	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
     	
     	
     }

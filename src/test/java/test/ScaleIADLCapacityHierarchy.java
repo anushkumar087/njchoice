@@ -69,8 +69,9 @@ public class ScaleIADLCapacityHierarchy extends Base{
 		Reusables.setIOMapping(IOMapping.getIADLCapacityHierarchyInputs(),IOMapping.getIADLCapacityHierarchyOutput(),new Object(){}.getClass().getEnclosingMethod().getName());
 		
 		njChoicePage.njChoiceAssessmentTab.click();
-		njChoicePage.FunctionalStatusSectionGandH.click();
 		
+		// Go to section G and enter required values
+		njChoicePage.FunctionalStatusSectionGandH.click();
 		functionalStatus = PageFactory.initElements(driver, FunctionalStatusPage.class);
 		
 		functionalStatus.clickEditButtonIfDisplayed(functionalStatus);

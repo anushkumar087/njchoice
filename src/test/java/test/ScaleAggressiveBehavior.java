@@ -79,7 +79,7 @@ public class ScaleAggressiveBehavior extends Base{
 		command.sendKeysWithBuffer(moodAndBehavior.iE3b, ie3b);
 		command.sendKeysWithBuffer(moodAndBehavior.iE3c, ie3c);
 		command.sendKeysWithBuffer(moodAndBehavior.iE3d, ie3d);
-		command.sendKeysWithBuffer(moodAndBehavior.iE3e, ie3e);
+		command.sendKeysWithBuffer(moodAndBehavior.iE3f, ie3e);
 		
 		moodAndBehavior.saveOrUpdateAfterEnteringRequiredFields(moodAndBehavior);
 		

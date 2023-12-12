@@ -75,7 +75,7 @@ public class ScaleBodyMassIndex extends Base{
 		
 		njChoicePage.njChoiceAssessmentTab.click();
 		
-		// Enter Section C and D
+		// Enter Section K and L
 		njChoicePage.oralAndNutritionalStatusSectionKAndL.click();
 		
 		oralAndNutritionalStatusPage = PageFactory.initElements(driver, OralAndNutritionalStatusPage.class);

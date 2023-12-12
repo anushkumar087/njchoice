@@ -44,6 +44,15 @@ public class OralAndNutritionalStatusPage {
 	@FindBy(xpath ="//label[contains(text(),'L3')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iL3;
 	
+	@FindBy(xpath ="//label[contains(text(),'L4')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iL4;
+	
+	@FindBy(xpath ="//label[contains(text(),'L5')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iL5;
+	
+	@FindBy(xpath ="//label[contains(text(),'L7')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iL7;
+	
 	
 	@FindBy(xpath="//span[contains(text(),'ORAL AND NUTRITIONAL STATUS')]//ancestor::div[@part='body']//button[@type='submit' and text()='Save & Next']")
 	public WebElement SaveAndNextButton;

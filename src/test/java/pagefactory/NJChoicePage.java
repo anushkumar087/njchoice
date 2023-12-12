@@ -31,11 +31,18 @@ private WebDriver driver;
 	@FindBy(xpath="//div[@role='list']//label[contains(text(),'REFERRAL')]")
 	public WebElement referralSectionA;
 	
+	@CacheLookup
+	@FindBy(xpath="//div[@role='list']//label[contains(text(),'INTAKE')]")
+	public WebElement intakeSectionB;
+	
 	@FindBy(xpath="//div[@role='list']//label[contains(text(),'COGNITION')]")
 	public WebElement cognitionSectionCandD;
 	
 	@FindBy(xpath="//div[@role='list']//label[contains(text(),'MOOD AND BEHAVIOR')]")
 	public WebElement moodAndBehaviorSectionE;
+	
+	@FindBy(xpath="//div[@role='list']//label[contains(text(),'DISEASE')]")
+	public WebElement diseaseDiagnosesSectionI;
 	
 	@FindBy(xpath="//div[@role='list']//label[contains(text(),'HEALTH CONDITIONS')]")
 	public WebElement healthConditionsSectionJ;
@@ -48,6 +55,9 @@ private WebDriver driver;
 	
 	@FindBy(xpath="//div[@role='list']//label[contains(text(),'MEDICATIONS')]")
 	public WebElement medicationsAndTreatmentsSectionMandN;
+	
+	@FindBy(xpath="//div[@role='list']//label[contains(text(),'SOCIAL SUPPORT')]")
+	public WebElement socialSupportSectionPQandR;
 	
 
 }

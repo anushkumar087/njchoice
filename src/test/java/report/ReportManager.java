@@ -49,15 +49,15 @@ public class ReportManager {
 		//creating the 0th row using the createRow() method  
 		XSSFRow rowhead = sheet.createRow((short)rowIndex);  
 		// Create array of Cell
-		Cell[] headCells = new Cell[5];
+		Cell[] headCells = new Cell[6];
 		
-		for(int i =0; i<5; i++)
+		for(int i =0; i<headCells.length; i++)
 		{
 			headCells[i] = rowhead.createCell(i);
 		}
 		
 		
-		for (int i = 0; i < 5; i++) 
+		for (int i = 0; i < headCells.length; i++) 
 		{
 			CellStyle style = wb.createCellStyle(); //Create new style
             style.setFillBackgroundColor(IndexedColors.AQUA.getIndex());
@@ -75,6 +75,7 @@ public class ReportManager {
 		headCells[2].setCellValue("Expected Output");  
 		headCells[3].setCellValue("Actual Output");  
 		headCells[4].setCellValue("Result");
+		headCells[5].setCellValue("Execution time in minutes");
 				
 		//creates an excel file at the specified location  
 		OutputStream fileOut = new FileOutputStream(DataFile.reportSheet+"_"+current_time+".xlsx");   
@@ -85,7 +86,7 @@ public class ReportManager {
 	
 	
 	
-	public static synchronized void makeRowEntry(String methodName, Object[] ioValues, int status) throws FileNotFoundException, IOException
+	public static synchronized void makeRowEntry(String methodName, Object[] ioValues, int status, long executionTime) throws FileNotFoundException, IOException
 	{
 		rowIndex++;
 		
@@ -97,15 +98,15 @@ public class ReportManager {
 		//creating the 0th row using the createRow() method  
 		XSSFRow row = sheet.createRow((short)rowIndex);  
 		// Create array of Cell
-		Cell[] cells = new Cell[5];
+		Cell[] cells = new Cell[6];
 		
-		for(int i =0; i<5; i++)
+		for(int i =0; i<cells.length; i++)
 		{
 			cells[i] = row.createCell(i);
 		}
 		
 		
-		for (int i = 0; i < 5; i++) 
+		for (int i = 0; i < cells.length; i++) 
 		{
 			CellStyle style = wb.createCellStyle(); //Create new style
 			if(rowIndex%2==0)
@@ -172,6 +173,7 @@ public class ReportManager {
 		}
 		
 		cells[4].setCellValue(result);
+		cells[5].setCellValue(Long.toString(executionTime));
 		
 //		if(!Reusables.actualOutputFromUI.isEmpty())
 //		{

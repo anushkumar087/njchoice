@@ -114,6 +114,53 @@ public class CapsAndAlgoValuesPage {
 	@FindBy(xpath="//h1/b[contains(text(),'Mood:')]/..")
 	public WebElement moodCapValue;
 	
+	@FindBy(xpath="//h1/b[contains(text(),'Informal Support:')]/..")
+	public WebElement informalSupportValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Urinary Incontinence:')]/..")
+	public WebElement urinaryIncontinenceValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Activities of Daily Living:')]/..")
+	public WebElement iadlImprovementCapValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Bowel Conditions:')]/..")
+	public WebElement bowelCapValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Social Relationships:')]/..")
+	public WebElement socialRelationshipsCapValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Cognitive Loss:')]/..")
+	public WebElement cognitiveCapValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Institutional Risk:')]/..")
+	public WebElement institutionalRiskCapValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Caregiver Risk Evaluation (CaRE) Algorithm:')]/..")
+	public WebElement careScaleValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Home Environment Optimization:')]/..")
+	public WebElement environmentalCapsValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Prevention:')]/..")
+	public WebElement preventionCapsValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Detection of Indicators and Vulnerabilities for Emergency Room Trips Scale:')]/..")
+	public WebElement divertScaleValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Changes in Health, End-stage disease and Symptoms and Signs Scale:')]/..")
+	public WebElement chessScaleValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Abusive Relationship:')]/..")
+	public WebElement abusiveRelationshipCapsValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Resource Utilization Groups - III/Home Care(aNR3H):')]/..")
+	public WebElement rug3aNR3hValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Resource Utilization Groups - III/Home Care(aR3H):')]/..")
+	public WebElement rug3aR3hValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Age in Years:')]/..")
+	public WebElement ageInYearsValue;
 	
 	
 	@FindBy(xpath="//lightning-tab[contains(@class,'slds-show')]//button[text()='Refresh']")

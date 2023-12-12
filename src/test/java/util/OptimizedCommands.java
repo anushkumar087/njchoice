@@ -1,6 +1,8 @@
 package util;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -63,10 +65,13 @@ public class OptimizedCommands {
 	
 	public void sendKeysWithBuffer(WebElement element,String keys)
 	{
-		try { element.click();}catch(Exception e) {}
-		element.clear();
-		element.sendKeys(keys);
-		try{Thread.sleep(2000);}catch(Exception e) {}
+		if(!keys.toUpperCase().equals("NA"))
+		{
+			try { element.click();}catch(Exception e) {}
+			element.clear();
+			element.sendKeys(keys);
+			try{Thread.sleep(2000);}catch(Exception e) {}
+		}
 	}
 	
 	public boolean waitForAlertAndAccept(WebDriver driver,String alertExpectedSubText,int secs)
@@ -158,6 +163,31 @@ public class OptimizedCommands {
 		try{Thread.sleep(2000);}catch(Exception e) {}
 		actions.keyDown(Keys.ENTER).keyUp(Keys.ENTER).build().perform();
 		
+	}
+	
+	public static void setFieldValueThroughKeys(WebElement element, String dateValue, WebDriver driver)
+	{
+		int width = element.getSize().getWidth();
+		
+		dateValue = dateValue.substring(0, 4)+"-"+dateValue.substring(4, 6)+"-"+dateValue.substring(6, 8);
+		LocalDate date = LocalDate.parse(dateValue);
+		date = date.plusDays(3);
+		dateValue = date.toString();
+		dateValue = dateValue.replaceAll("-", "");
+		
+		String dateToBeEntered = dateValue.substring(6, 8)+dateValue.substring(4, 6)+dateValue.substring(0, 4);
+		
+		Actions actions = new Actions(driver);
+		
+		actions.moveToElement(element).build().perform();
+		actions.moveByOffset(-width/2, 0).build().perform();
+		actions.moveByOffset(5, 0).build().perform();
+		actions.click().build().perform();
+		
+		for(int i =0; i<dateToBeEntered.length(); i++)
+		{
+			Reusables.enterKey(element, driver, dateToBeEntered.charAt(i));
+		}
 	}
 	
 

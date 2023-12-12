@@ -46,15 +46,16 @@ public class AppCommonActions {
 		boolean noErrorsReportedAlert = command.waitForAlertAndAccept(driver, DataFile.noErrorsReportedAlert, 20);
 		Assert.assertTrue(noErrorsReportedAlert);
 		
+		boolean informationUpdatedAlert = command.waitForAlertAndAccept(driver, DataFile.informationUpdatedAlert, 20);
 		boolean informationSavedAlert = command.waitForAlertAndAccept(driver, DataFile.informationSavedAlert, 20);
-		Assert.assertTrue(informationSavedAlert);
+		Assert.assertTrue(informationSavedAlert||informationUpdatedAlert);
 		
 		String njChoiceUniqueId = command.getAlertText(driver, 20);
 		
 //		boolean someAlert = command.waitForAnyAlertAndAccept(driver, 20);
 //		Assert.assertTrue(someAlert);
 		
-		System.out.println("njChoiceUniqueId = "+njChoiceUniqueId);
+//		System.out.println("njChoiceUniqueId = "+njChoiceUniqueId);
 	}
 	
 	public void handleAlertsAfterSaveOrUpdateInputsSection(WebDriver driver, OptimizedCommands command)
@@ -71,7 +72,7 @@ public class AppCommonActions {
 	
 	public CapsAndAlgoValuesPage navigateToCapsAndAlgoTabAndRefreshValues(WebDriver driver, NJChoicePage njChoicePage, OptimizedCommands command, CapsAndAlgoValuesPage capsAlgoPage)
 	{
-		// Wait for 5 secs
+		// Wait for 3 secs
 		try{Thread.sleep(5000);}catch(Exception e) {}
 				
 		if(njChoicePage.capsAndAlgoTab.getAttribute("aria-selected").equals("false"))

@@ -167,4 +167,95 @@
              <class name="test.CapsMood"/>
           </classes>
      </test>
+     <test name="CapsInformalSupport">
+         <classes>
+             <class name="test.CapsInformalSupport"/>
+          </classes>
+     </test>
+     
+     <test name="CapsUrinaryIncontinence">
+         <classes>
+             <class name="test.CapsUrinaryIncontinence"/>
+          </classes>
+     </test>
+     
+     <test name="CapsIADLImprovement">
+         <classes>
+             <class name="test.CapsIADLImprovement"/>
+          </classes>
+     </test>
+     <test name="CapsBowelConditions">
+         <classes>
+             <class name="test.CapsBowelConditions"/>
+          </classes>
+     </test>
+     <test name="CapsSocialFunction">
+         <classes>
+             <class name="test.CapsSocialFunction"/>
+          </classes>
+     </test>
+     <test name="CapsCognitive">
+         <classes>
+             <class name="test.CapsCognitive"/>
+          </classes>
+     </test>
+     <test name="CapsInstitutionalRisk">
+         <classes>
+             <class name="test.CapsInstitutionalRisk"/>
+          </classes>
+     </test>
+     
+     <test name="ScaleCareAlgorithm">
+         <classes>
+             <class name="test.ScaleCareAlgorithm"/>
+          </classes>
+     </test>
+     
+     <test name="CapsEnvironmental">
+         <classes>
+             <class name="test.CapsEnvironmental"/>
+          </classes>
+     </test>
+     <test name="CapsPrevention">
+         <classes>
+             <class name="test.CapsPrevention"/>
+          </classes>
+     </test>
+     <test name="ScaleDivert">
+         <classes>
+             <class name="test.ScaleDivert"/>
+          </classes>
+     </test>
+     <test name="ScaleCHESS">
+         <classes>
+             <class name="test.ScaleCHESS"/>
+          </classes>
+     </test>
+     <test name="CapsAbusiveRelationship">
+         <classes>
+             <class name="test.CapsAbusiveRelationship"/>
+          </classes>
+     </test>
+     <test name="CapsADL">
+         <classes>
+             <class name="test.CapsADL"/>
+          </classes>
+     </test>
+     <test name="ScaleRUG3aNR3h">
+         <classes>
+             <class name="test.ScaleRUG3aNR3h"/>
+          </classes>
+     </test>
+     <test name="ScaleRUG3aR3h">
+         <classes>
+             <class name="test.ScaleRUG3aR3h"/>
+          </classes>
+     </test>
+     <test name="ScaleAge">
+         <classes>
+             <class name="test.ScaleAge"/>
+          </classes>
+     </test>
+     
+     
 </suite>
