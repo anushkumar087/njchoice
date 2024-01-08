@@ -11,5 +11,6 @@ public class ExtentManager {
         extentReports.attachReporter(reporter);
         extentReports.setSystemInfo("Author", "Anush Malli");
         return extentReports;
+        
     }
 }
