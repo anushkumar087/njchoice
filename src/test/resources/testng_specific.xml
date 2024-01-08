@@ -4,36 +4,26 @@
 	<listeners>  
 		<listener class-name="listener.ListenerTest"/>  
 	</listeners>
-	
-     <test name="ScaleADLHierarchy">
-         <classes>
-             <class name="test.ScaleADLHierarchy"/>
-          </classes>
-     </test>
-     <test name="CapsCommunication">
-         <classes>
-             <class name="test.CapsCommunication"/>
-          </classes>
-     </test>
-     <test name="ScaleADLSF">
-         <classes>
-             <class name="test.ScaleADLSF"/>
-          </classes>
-     </test>
+
      
-     <test name="ScaleADLLF">
+     <test name="CapsADL">
          <classes>
-             <class name="test.ScaleADLLF"/>
+             <class name="test.CapsADL"/>
           </classes>
      </test>
-     <test name="ScalePain1">
+      <test name="ScaleRUG3aNR3h">
          <classes>
-             <class name="test.ScalePain1"/>
+             <class name="test.ScaleRUG3aNR3h"/>
           </classes>
      </test>
-     <test name="ScaleBodyMassIndex">
+     <test name="ScaleRUG3aR3h">
          <classes>
-             <class name="test.ScaleBodyMassIndex"/>
+             <class name="test.ScaleRUG3aR3h"/>
+          </classes>
+     </test>
+     <test name="ScaleAge">
+         <classes>
+             <class name="test.ScaleAge"/>
           </classes>
      </test>
 </suite>
