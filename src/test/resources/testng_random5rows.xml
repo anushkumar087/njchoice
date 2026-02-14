@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="NJChoice-Random-5-Rows-Test" verbose="1" preserve-order="true" parallel="false" thread-count="1">
+	<listeners>  
+		<listener class-name="listener.ComprehensiveTestListener"/>  
+	</listeners>
+	
+	<!-- Random 5 Rows Test -->
+     <test name="ComprehensiveTest-Random5Rows">
+     	<parameter name="dataProviderType" value="Random5Rows"/>
+         <classes>
+             <class name="testAll.ComprehensiveAllSectionsTest">
+             	<methods>
+             		<include name="testAllSectionsComprehensive"/>
+             	</methods>
+             </class>
+          </classes>
+     </test>
+</suite>

@@ -2,7 +2,6 @@ package testAll;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -12,7 +11,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import base.Base;
 import pagefactory.CapsAndAlgoValuesPage;
 import pagefactory.CommunicationAndVisionPage;
@@ -34,28 +32,6 @@ import util.DataFile;
 import util.OptimizedCommands;
 import util.TestValidationHelper;
 
-/**
- * Comprehensive test that enters data for ALL sections (A through S) 
- * and validates ALL CAPS and Scale output values from the Master_Data.xlsx file.
- * 
- * This test:
- * 1. Fills Section A (Referral) - Mandatory
- * 2. Fills Section B (Intake)
- * 3. Fills Section C-D (Cognition/Communication and Vision)
- * 4. Fills Section E-F (Mood and Behavior)
- * 5. Fills Section G-H (Functional Status)
- * 6. Fills Section I (Disease Diagnoses)
- * 7. Fills Section J (Health Conditions)
- * 8. Fills Section K-L (Oral and Nutritional Status)
- * 9. Fills Section M-N (Medications and Treatments)
- * 10. Fills Section P-Q-R (Social Support)
- * 11. Fills Section S (Completion)
- * 12. Validates ALL output values (46 CAPS and Scales)
- * 
- * NOTE: This test uses ComprehensiveTestListener for comprehensive reporting.
- * The listener automatically manages report initialization, test result recording,
- * and summary generation using the new ComprehensiveTestReportManager.
- */
 @Listeners(listener.ComprehensiveTestListener.class)
 public class ComprehensiveAllSectionsTest extends Base {
 	
@@ -63,8 +39,6 @@ public class ComprehensiveAllSectionsTest extends Base {
 	AppCommonActions commonActions;
 	NJChoicePage njChoicePage;
 	OptimizedCommands command;
-	
-	// Page Objects for all sections
 	ReferralPage referralPage;
 	IntakePage intakePage;
 	CommunicationAndVisionPage communicationAndVisionPage;
@@ -79,7 +53,6 @@ public class ComprehensiveAllSectionsTest extends Base {
 	CompletionPage completionPage;
 	CapsAndAlgoValuesPage capsAlgoPage;
 	
-	// Store all field values from the data row
 	private Map<String, String> dataMap = new HashMap<>();
 	
 	public ComprehensiveAllSectionsTest(String dataFile) {
@@ -91,63 +64,26 @@ public class ComprehensiveAllSectionsTest extends Base {
 		base = new ComprehensiveAllSectionsTest(DataFile.master_DataFile);
 		commonActions = new AppCommonActions();
 		command = new OptimizedCommands();
-		
 		base.initialize();
 		commonActions.loginToSalesForce(driver);
 		commonActions.navigateToNJChoice(driver);
-		
-//		njChoicePage = PageFactory.initElements(driver, NJChoicePage.class);
-//		command.waitTillElementDisplayed(driver, njChoicePage.CreateNJChoiceAssessmentHeader, 60);
-//		
-//		// Fill Section A (Mandatory) - Will be filled here with basic mandatory fields
-//		// Additional fields from Section A will be filled in the test method with data
-//		njChoicePage.referralSectionA.click();
-//		referralPage = PageFactory.initElements(driver, ReferralPage.class);
-//		referralPage.enterAllMandatoryFields();
-//		referralPage.SaveAndNextButton.click();
-//		commonActions.handleAlertsAfterSaveReferralSection(driver, command);
 	}
 	
-	/**
-	 * Comprehensive test method that fills ALL sections and validates ALL outputs.
-	 * 
-	 * DATA PROVIDER USAGE:
-	 * 
-	 * Option 1 - Use Dynamic Data Provider (Recommended):
-	 *   Change annotation to: @Test(dataProvider="DynamicDataProvider", dataProviderClass=dataproviders.MasterDataProvider.class, priority=1)
-	 *   Then control via TestNG XML parameter or Maven -D property
-	 * 
-	 * Option 2 - Use Specific Static Data Provider:
-	 *   Change dataProvider value to any of: "AllSectionsData", "First3Rows", "Random10Rows", etc.
-	 *   Example: @Test(dataProvider="Random10Rows", dataProviderClass=dataproviders.MasterDataProvider.class, priority=1)
-	 * 
-	 * Current Configuration: Using AllSectionsData (all rows from Excel)
-	 */
 	@Test(dataProvider="DynamicDataProvider", dataProviderClass=dataproviders.MasterDataProvider.class, priority=1)
 	public void testAllSectionsComprehensive(Object[] rowData) throws Exception {
 		System.out.println("========================================");
 		System.out.println("Starting Comprehensive Test for All Sections");
 		System.out.println("========================================");
 
-		// Clear any previous validation tracking for this test iteration
 		TestValidationHelper.clearFailedOutputColumns();
-
-		// Convert row data to map for easy access
 		dataMap = TestValidationHelper.populateDataMap(rowData, DataFile.master_DataFile);
-
-		// Store dataMap in listener's thread-local storage for reporting
 		ComprehensiveTestListener.setTestDataMap(dataMap);
-		
-		
 		
 		// // ===== SECTION A: Additional Referral Fields =====
 		System.out.println("Filling Additional Section A: Referral fields...");
 		njChoicePage = PageFactory.initElements(driver, NJChoicePage.class);
 		njChoicePage.njChoiceAssessmentTab.click();
 		command.waitTillElementDisplayed(driver, njChoicePage.CreateNJChoiceAssessmentHeader, 60);
-		
-		// Fill Section A (Mandatory) - Will be filled here with basic mandatory fields
-		// Additional fields from Section A will be filled in the test method with data
 		njChoicePage.referralSectionA.click();
 		referralPage = PageFactory.initElements(driver, ReferralPage.class);
 		referralPage.enterAllMandatoryFields();
@@ -478,7 +414,6 @@ public class ComprehensiveAllSectionsTest extends Base {
 		sendKeysIfDataExists(healthConditionsPage.iJ8a, "iJ8a");
 		sendKeysIfDataExists(healthConditionsPage.iJ8b, "iJ8b");
 		
-		
 		healthConditionsPage.saveOrUpdateAfterEnteringRequiredFields(healthConditionsPage);
 		commonActions.handleAlertsAfterSaveOrUpdateInputsSection(driver, command);
 	}
@@ -638,8 +573,6 @@ public class ComprehensiveAllSectionsTest extends Base {
 		// Fill Section S with default values
 		completionPage.fillCompletionSectionWithDefaults();
 		
-		
-		
 		completionPage.saveOrUpdateAfterEnteringRequiredFields(completionPage);
 		commonActions.handleAlertsAfterSaveOrUpdateInputsSection(driver, command);
 	}
@@ -654,11 +587,7 @@ public class ComprehensiveAllSectionsTest extends Base {
 		
 		int validationCount = 0;
 		int passedCount = 0;
-		
-		// Create map to track validation results: output key -> validation result (1=pass, 0=fail)
 		Map<String, Integer> outputValidationMap = new HashMap<>();
-		
-		// Validate all 46 outputs and store results in map
 		int result;
 		
 		result = TestValidationHelper.validateOutput(capsAlgoPage.cCARDIOValue, "Cardio-respiratory CAP", dataMap, ++validationCount);
@@ -917,7 +846,7 @@ public class ComprehensiveAllSectionsTest extends Base {
 	@AfterTest
 	public void tearDown() {
 		if (driver != null) {
-			//driver.quit();
+			driver.quit();
 		}
 	}
 }

@@ -1,13 +1,11 @@
 package pagefactory;
 
 import java.util.Scanner;
-
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 
 import base.Base;
 import util.OptimizedCommands;
@@ -52,9 +50,20 @@ public class LoginPage {
 	// Functionality for login to Salesfore UI
 	public void loginToSandbox()
 	{
+		// Read username from Maven command (-Dusername=xxx) or fall back to config file
+		String username = System.getProperty("username");
+		if (username == null || username.isEmpty()) {
+			username = Base.prop.get("username").toString();
+		}
 		
-		usernameInput.sendKeys(Base.prop.get("username").toString());
-		passwordInput.sendKeys(Base.prop.get("password").toString());
+		// Read password from Maven command (-Dpassword=xxx) or fall back to config file
+		String password = System.getProperty("password");
+		if (password == null || password.isEmpty()) {
+			password = Base.prop.get("password").toString();
+		}
+		
+		usernameInput.sendKeys(username);
+		passwordInput.sendKeys(password);
 		loginButton.click();
 
 		// Check if running in Docker environment
@@ -62,6 +71,7 @@ public class LoginPage {
 			System.getProperty("docker.runtime", System.getenv("IS_DOCKER_RUNTIME"))
 		);
 
+		OptimizedCommands command = new OptimizedCommands();
 		// showPromptToEnterCode();
 		
 		if (IS_DOCKER_RUNTIME) {
@@ -78,7 +88,7 @@ public class LoginPage {
 			System.out.println("============================================================\n");
 			
 			// Input the verification code into Salesforce
-			OptimizedCommands command = new OptimizedCommands();
+			
 			command.waitTillElementClickable(driver, verificationCodeInput, 15);
 			verificationCodeInput.sendKeys(verificationCode);
 			verifyButton.click();
@@ -92,6 +102,7 @@ public class LoginPage {
 		} 
 		else {
 			// In non-Docker environments, show on-screen prompt for manual code entry
+			command.waitTillElementClickable(driver, verificationCodeInput, 15);
 			showPromptToEnterCode();
 		}
 

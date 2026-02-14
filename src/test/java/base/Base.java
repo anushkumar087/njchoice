@@ -50,25 +50,19 @@ public class Base {
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--disable-notifications");
 
-		// Check if running in Docker environment
 		boolean IS_DOCKER_RUNTIME = Boolean.parseBoolean(
 			System.getProperty("docker.runtime", System.getenv("IS_DOCKER_RUNTIME"))
 		);
 		
 		if (IS_DOCKER_RUNTIME) {
 			System.out.println("🐳 Running in Docker - Configuring Chrome for headless execution");
-			
-			// Set ChromeDriver path explicitly for Docker
 			String chromeDriverPath = System.getenv("CHROMEDRIVER_PATH");
 			if (chromeDriverPath != null && !chromeDriverPath.isEmpty()) {
 				System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 				System.out.println("✓ ChromeDriver path set to: " + chromeDriverPath);
 			}
-			
-			// Set Chromium binary location
 			chromeOptions.setBinary("/usr/bin/chromium");
 			System.out.println("✓ Chrome binary set to: /usr/bin/chromium");
-			
 			chromeOptions.addArguments("--headless");       // Use old headless (more stable)
 			chromeOptions.addArguments("--no-sandbox");     // REQUIRED in Docker
 			chromeOptions.addArguments("--disable-dev-shm-usage"); // avoids /dev/shm crash
@@ -83,8 +77,6 @@ public class Base {
 			chromeOptions.addArguments("--disable-renderer-backgrounding");
 			chromeOptions.addArguments("--disable-features=IsolateOrigins,site-per-process");
 			chromeOptions.setAcceptInsecureCerts(true);
-			
-			// Enable verbose logging
 			System.setProperty("webdriver.chrome.verboseLogging", "true");
 		}
 		

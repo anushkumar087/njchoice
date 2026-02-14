@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="NJChoice-First-5-Rows-Test" verbose="1" preserve-order="true" parallel="false" thread-count="1">
+	<listeners>  
+		<listener class-name="listener.ComprehensiveTestListener"/>  
+	</listeners>
+	
+	<!-- First 5 Rows Test -->
+     <test name="ComprehensiveTest-First5Rows">
+     	<parameter name="dataProviderType" value="First5Rows"/>
+         <classes>
+             <class name="testAll.ComprehensiveAllSectionsTest">
+             	<methods>
+             		<include name="testAllSectionsComprehensive"/>
+             	</methods>
+             </class>
+          </classes>
+     </test>
+</suite>

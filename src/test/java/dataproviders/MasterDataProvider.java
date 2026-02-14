@@ -65,8 +65,9 @@ public class MasterDataProvider {
 			case "singlerandomrow":
 				return getSingleRandomRow();
 			case "allrows":
+				return getAllTestData();
 			default:
-				return getAllSectionsTestData();
+				return getSingleRandomRow();
 		}
 	}
 	
@@ -75,8 +76,8 @@ public class MasterDataProvider {
 	 * @return Object[][] containing all rows and columns from the Excel file
 	 * @throws IOException if file reading fails
 	 */
-	@DataProvider(name="AllSectionsData")
-	public static Object[][] getAllSectionsTestData() throws IOException {
+	@DataProvider(name="AllData")
+	public static Object[][] getAllTestData() throws IOException {
 		Object[][] testData = TestData.getAllDataFromMasterSheet(DataFile.master_DataFile);
 		return testData;
 	}
