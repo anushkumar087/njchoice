@@ -21,6 +21,12 @@ public class HealthConditionsPage {
 	@FindBy(xpath ="//label[contains(text(),'J1')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ1;
 	
+	@FindBy(xpath ="//label[contains(text(),'J2a')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2a;
+	
+	@FindBy(xpath ="//label[contains(text(),'J2b')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2b;
+	
 	@FindBy(xpath ="//label[contains(text(),'J2c')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2c;
 	
@@ -29,6 +35,9 @@ public class HealthConditionsPage {
 	
 	@FindBy(xpath ="//label[contains(text(),'J2e')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2e;
+	
+	@FindBy(xpath ="//label[contains(text(),'J2f')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2f;
 	
 	@FindBy(xpath ="//label[contains(text(),'J2g')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2g;
@@ -48,8 +57,17 @@ public class HealthConditionsPage {
 	@FindBy(xpath ="//label[contains(text(),'J2l')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2l;
 	
+	@FindBy(xpath ="//label[contains(text(),'J2m')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2m;
+	
 	@FindBy(xpath ="//label[contains(text(),'J2n')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2n;
+	
+	@FindBy(xpath ="//label[contains(text(),'J2o')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2o;
+	
+	@FindBy(xpath ="//label[contains(text(),'J2p')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ2p;
 	
 	@FindBy(xpath ="//label[contains(text(),'J2q')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ2q;
@@ -69,11 +87,23 @@ public class HealthConditionsPage {
 	@FindBy(xpath ="//label[contains(text(),'J3')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ3;
 	
+	@FindBy(xpath ="//label[contains(text(),'J4')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ4;
+	
 	@FindBy(xpath ="//label[contains(text(),'J5a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ5a;
 	
 	@FindBy(xpath ="//label[contains(text(),'J5b')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ5b;
+	
+	@FindBy(xpath ="//label[contains(text(),'J5c')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ5c;
+	
+	@FindBy(xpath ="//label[contains(text(),'J5d')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ5d;
+	
+	@FindBy(xpath ="//label[contains(text(),'J5e')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ5e;
 	
 	@FindBy(xpath ="//label[contains(text(),'J6a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ6a;
@@ -86,6 +116,9 @@ public class HealthConditionsPage {
 	
 	@FindBy(xpath ="//label[contains(text(),'J7a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ7a;
+	
+	@FindBy(xpath ="//label[contains(text(),'J7') and not(contains(text(),'J7a'))]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iJ7;
 	
 	@FindBy(xpath ="//label[contains(text(),'J8a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iJ8a;

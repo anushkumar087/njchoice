@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.iml
+.project
+.classpath
+.settings
+
+# Build artifacts (will be generated in container)
+target/
+bin/
+
+# Reports (will be mounted as volume)
+reports/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml

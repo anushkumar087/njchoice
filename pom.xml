@@ -9,24 +9,26 @@
   <description>My Project Description.</description>
 
   <properties>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <testng.selenium.endpoint>https://google.com</testng.selenium.endpoint>
+    <!-- Default TestNG suite file - can be overridden via command line -->
+    <testng.suite.xml>src/test/resources/testng_comprehensive_smoke.xml</testng.suite.xml>
   </properties>
 
   <dependencies>
     <dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>7.0.0</version>
+			<version>7.11.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.seleniumhq.selenium</groupId>
 		    <artifactId>selenium-java</artifactId>
-		    <version>4.11.0</version>
+		    <version>4.39.0</version>
 		</dependency>
 		<dependency>
 		    <groupId>io.github.bonigarcia</groupId>
@@ -86,7 +88,7 @@
         <version>2.18.1</version>
         <configuration>
 			<suiteXmlFiles>
-				<suiteXmlFile>src/test/resources/testng_specific.xml</suiteXmlFile>
+				<suiteXmlFile>${testng.suite.xml}</suiteXmlFile>
 			</suiteXmlFiles>
 		</configuration>
       </plugin>
@@ -94,8 +96,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>11</source>
+          <target>11</target>
         </configuration>
 	    </plugin>
     </plugins>

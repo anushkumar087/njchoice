@@ -23,8 +23,14 @@ public class FunctionalStatusPage {
 	@FindBy(xpath ="//label[contains(text(),'G1ab')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG1ab;
 	
+	@FindBy(xpath ="//label[contains(text(),'G1ba')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iG1ba;
+	
 	@FindBy(xpath ="//label[contains(text(),'G1bb')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG1bb;
+	
+	@FindBy(xpath ="//label[contains(text(),'G1ca')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iG1ca;
 	
 	@FindBy(xpath ="//label[contains(text(),'G1cb')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG1cb;
@@ -38,8 +44,17 @@ public class FunctionalStatusPage {
 	@FindBy(xpath ="//label[contains(text(),'G1ea')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG1ea;
 	
+	@FindBy(xpath ="//label[contains(text(),'G1eb')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iG1eb;
+	
+	@FindBy(xpath ="//label[contains(text(),'G1ga')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iG1ga;
+	
 	@FindBy(xpath ="//label[contains(text(),'G1gb')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG1gb;
+	
+	@FindBy(xpath ="//label[contains(text(),'G1ha')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iG1ha;
 	
 	@FindBy(xpath ="//label[contains(text(),'G1hb')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG1hb;
@@ -50,35 +65,38 @@ public class FunctionalStatusPage {
 	@FindBy(xpath ="//label[contains(text(),'G1fb')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG1fb;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2c')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2a;
 	
 	@FindBy(xpath ="//label[contains(text(),'G2b')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2b;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2d')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2c')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2c;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2e')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2d')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2d;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2j')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2e')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2e;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2k')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2f')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2f;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2f')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2g')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2g;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2g')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2h')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2h;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2h')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2i')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2i;
 	
-	@FindBy(xpath ="//label[contains(text(),'G2a')]/ancestor::div[1]/following-sibling::*//input")
+	@FindBy(xpath ="//label[contains(text(),'G2j')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG2j;
+	
+	@FindBy(xpath ="//label[contains(text(),'G2k')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iG2k;
 	
 	@FindBy(xpath ="//label[contains(text(),'G3a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iG3a;
@@ -110,6 +128,9 @@ public class FunctionalStatusPage {
 	@FindBy(xpath ="//label[contains(text(),'H3')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iH3;
 	
+	@FindBy(xpath ="//label[contains(text(),'H4')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iH4;
+	
 	@FindBy(xpath="//span[contains(text(),'CONTINENCE')]//ancestor::div[@part='body']//button[@type='submit' and text()='Save & Next']")
 	public WebElement SaveAndNextButton;
 	
@@ -118,6 +139,11 @@ public class FunctionalStatusPage {
 	
 	@FindBy(xpath="//span[contains(text(),'CONTINENCE')]//ancestor::div[@part='body']//button[@type='submit' and text()='Update']")
 	public WebElement UpdateButton;
+	
+	public void enterUnnecessaryButMandatoryFields() {
+		OptimizedCommands o = new OptimizedCommands();
+		o.sendKeysWithBuffer(this.iG2i, "0");
+	}
 	
 	
 	public void clickEditButtonIfDisplayed(FunctionalStatusPage functionalStatusPage) 

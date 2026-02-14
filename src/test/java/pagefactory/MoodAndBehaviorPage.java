@@ -76,6 +76,18 @@ public class MoodAndBehaviorPage {
 	@FindBy(xpath="//label[contains(text(),'E3f')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iE3f;
 	
+	@FindBy(xpath="//label[contains(text(),'E4')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iE4;
+	
+	@FindBy(xpath="//label[contains(text(),'F1a')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iF1a;
+	
+	@FindBy(xpath="//label[contains(text(),'F1b')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iF1b;
+	
+	@FindBy(xpath="//label[contains(text(),'F1c')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iF1c;
+	
 	@FindBy(xpath="//label[contains(text(),'F1d')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iF1d;
 	
@@ -94,6 +106,9 @@ public class MoodAndBehaviorPage {
 	@FindBy(xpath="//label[contains(text(),'F4')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iF4;
 	
+	@FindBy(xpath="//label[contains(text(),'F5')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iF5;
+	
 	@FindBy(xpath="//span[contains(text(),'MOOD AND BEHAVIOR')]//ancestor::div[@part='body']//button[@type='submit' and text()='Save & Next']")
 	public WebElement SaveAndNextButton;
 	
@@ -102,6 +117,11 @@ public class MoodAndBehaviorPage {
 	
 	@FindBy(xpath="//span[contains(text(),'MOOD AND BEHAVIOR')]//ancestor::div[@part='body']//button[@type='submit' and text()='Update']")
 	public WebElement UpdateButton;
+	
+	public void enterUnnecessaryButMandatoryFields() {
+		OptimizedCommands o = new OptimizedCommands();
+		o.sendKeysWithBuffer(this.iE4, "0");
+	}
 	
 
 	public void clickEditButtonIfDisplayed(MoodAndBehaviorPage moodAndBehavior) 

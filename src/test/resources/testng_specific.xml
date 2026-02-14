@@ -10,30 +10,4 @@
              <class name="test.ScaleADLHierarchy"/>
           </classes>
      </test>
-     <test name="CapsCommunication">
-         <classes>
-             <class name="test.CapsCommunication"/>
-          </classes>
-     </test>
-     <test name="ScaleADLSF">
-         <classes>
-             <class name="test.ScaleADLSF"/>
-          </classes>
-     </test>
-     
-     <test name="ScaleADLLF">
-         <classes>
-             <class name="test.ScaleADLLF"/>
-          </classes>
-     </test>
-     <test name="ScalePain1">
-         <classes>
-             <class name="test.ScalePain1"/>
-          </classes>
-     </test>
-     <test name="ScaleBodyMassIndex">
-         <classes>
-             <class name="test.ScaleBodyMassIndex"/>
-          </classes>
-     </test>
 </suite>

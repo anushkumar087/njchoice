@@ -1,11 +1,29 @@
 package util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 public class DataFile {
 	
 	// File names
 	public static final String ConfigFile = System.getProperty("user.dir")+"/src/test/java/config/config.properties";
+	public static final String SectionAConfigFile = System.getProperty("user.dir")+"/src/test/java/config/config_sectionA_data.properties";
 	public static final String MasterDataFile = System.getProperty("user.dir")+"/test_data/MasterDataFile.xlsx";
 	public static final String reportSheet = System.getProperty("user.dir")+"/reports/report";
+	
+	// Static initializer to load properties from config file
+	private static Properties sectionAProperties = new Properties();
+	
+	static {
+		try {
+			FileInputStream file = new FileInputStream(SectionAConfigFile);
+			sectionAProperties.load(file);
+			file.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 //	public static final String ScaleDepressionSDRS_DataFile=System.getProperty("user.dir")+"/test_data/ScaleDepressionSDRS_data.xlsx";
 //	public static final String capsCardioRespiratory_DataFile=System.getProperty("user.dir")+"/test_data/CapsCardioRespiratory_data.xlsx";
@@ -109,37 +127,39 @@ public class DataFile {
 	public static final String ScaleAge_DataFile = master_DataFile;
 	
 	// Section A - Referral page data
-	public static final String ReferralDateValue = "07/07/2023";
+	public static final String ReferralDateValue = sectionAProperties.getProperty("referralDate", "07/07/2023");
 	
 	public static final String ReferralEntryDateValue = Reusables.getNextMonthDate();
 	
-	public static final String ReferralAssessmentSourceValue = "1";
+	public static final String ReferralAssessmentSourceValue = sectionAProperties.getProperty("referralAssessmentSource", "1");
 	
-	public static final String AssessmentOrganizationNameValue = "1";
+	public static final String AssessmentOrganizationNameValue = sectionAProperties.getProperty("assessmentOrganizationName", "1");
 	
-	public static final String ReasonForAssessmentValue = "1";
+	public static final String ReasonForAssessmentValue = sectionAProperties.getProperty("reasonForAssessment", "1");
 	
-	public static final String FirstNameValue = "Anush";
+	public static final String FirstNameValue = sectionAProperties.getProperty("firstName", "John");
 	
-	public static final String LastNameValue = "Malli";
+	public static final String LastNameValue = sectionAProperties.getProperty("lastName", "Doe");
 	
-	public static final String GenderValue = "1";
+	public static final String GenderValue = sectionAProperties.getProperty("gender", "1");
 	
-	public static final String GenderIdentityValue = "1";
+	public static final String GenderIdentityValue = sectionAProperties.getProperty("genderIdentity", "1");
 	
-	public static final String BirthdateValue = "01/01/1993";
+	public static final String BirthdateValue = sectionAProperties.getProperty("birthdate", "01/01/1993");
 	
-	public static final String SocialSecurityNumberValue = "111111111";
+	public static final String SocialSecurityNumberValue = sectionAProperties.getProperty("socialSecurityNumber", "111111111");
 	
-	public static final String StreetAddress1Value = "test";
-	public static final String City1Value = "test";
-	public static final String ZipCode1Value = "11111";
-	public static final String CountyValue = "1";
+	public static final String StreetAddress1Value = sectionAProperties.getProperty("streetAddress1", "test");
+	public static final String City1Value = sectionAProperties.getProperty("city1", "test");
+	public static final String ZipCode1Value = sectionAProperties.getProperty("zipCode1", "11111");
+	public static final String CountyValue = sectionAProperties.getProperty("county", "1");
 	
 	// Alert names
-	public static final String noErrorsReportedAlert = "No errors reported in the fields";
-	public static final String informationSavedAlert = "Information Saved";
-	public static final String informationUpdatedAlert = "Information Updated";
+	public static final String noErrorsReportedAlert = sectionAProperties.getProperty("noErrorsReportedAlert", "No errors reported in the fields");
+	public static final String informationSavedAlert = sectionAProperties.getProperty("informationSavedAlert", "Information Saved");
+	public static final String informationUpdatedAlert = sectionAProperties.getProperty("informationUpdatedAlert", "Information Updated");
+	public static final String incompleteAssessmentAlert = sectionAProperties.getProperty("incompleteAssessmentAlert", "Please complete all the sections before completing the application");
+	public static final String noErrorReportedAlert = "No error reported from Section A to S";
 	
 	
 

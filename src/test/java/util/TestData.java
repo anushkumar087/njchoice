@@ -111,5 +111,88 @@ public class TestData {
 		return testDataCollectionComp;
 		
 	}
+	
+	/**
+	 * Get ALL data from Master Sheet - reads all columns and all rows
+	 * @param filePathToRead - Path to the Excel file
+	 * @return Object[][] containing all data
+	 * @throws IOException
+	 */
+	public static Object[][] getAllDataFromMasterSheet(String filePathToRead) throws IOException {
+		Workbook wb = WorkbookFactory.create(new File(filePathToRead)); 
+		Sheet sheet = wb.getSheetAt(0);
+		
+		int noOfColumns = sheet.getRow(0).getLastCellNum();
+		int noOfRows = sheet.getLastRowNum() - sheet.getFirstRowNum();
+		
+		Object[][] testDataCollection = new Object[noOfRows][noOfColumns];
+		
+		int rowCount = 0;
+		
+		for (Row row : sheet) {
+			// Skip header row
+			if (rowCount == 0) {
+				rowCount++;
+				continue;
+			}
+			
+			int cellCount = 0;
+			for (Cell cell : row) {
+				if (cellCount < noOfColumns) {
+					try {
+						double numValue = cell.getNumericCellValue();
+						if (numValue % 1 == 0.0) {
+							testDataCollection[rowCount - 1][cellCount] = Integer.toString((int) numValue);
+						} else {
+							testDataCollection[rowCount - 1][cellCount] = Double.toString(numValue);
+						}
+					} catch (IllegalStateException | NumberFormatException e) {
+						try {
+							testDataCollection[rowCount - 1][cellCount] = cell.getStringCellValue();
+						} catch (Exception ex) {
+							testDataCollection[rowCount - 1][cellCount] = "";
+						}
+					} catch (Exception e) {
+						testDataCollection[rowCount - 1][cellCount] = "";
+					}
+				}
+				cellCount++;
+			}
+			
+			rowCount++;
+		}
+		
+		wb.close();
+		return testDataCollection;
+	}
+	
+	/**
+	 * Get all column headers from Master Sheet
+	 * @param filePathToRead - Path to the Excel file
+	 * @return String[] containing all column headers
+	 * @throws IOException
+	 */
+	public static String[] getAllColumnHeaders(String filePathToRead) throws IOException {
+		Workbook wb = WorkbookFactory.create(new File(filePathToRead)); 
+		Sheet sheet = wb.getSheetAt(0);
+		
+		Row headerRow = sheet.getRow(0);
+		int noOfColumns = headerRow.getLastCellNum();
+		
+		String[] headers = new String[noOfColumns];
+		
+		for (int i = 0; i < noOfColumns; i++) {
+			Cell cell = headerRow.getCell(i);
+			if (cell != null) {
+				headers[i] = cell.getStringCellValue().trim();
+			} else {
+				headers[i] = "";
+			}
+		}
+		
+		wb.close();
+		return headers;
+	}
 
 }
+

@@ -18,6 +18,9 @@ public class CapsAndAlgoValuesPage {
 		command = new OptimizedCommands();
 	}
 	
+	@FindBy(xpath ="//h1/b[contains(text(),'Method for Assigning Priority Levels:')]/..")
+	public WebElement aMAPLEvalue;
+	
 	@FindBy(xpath ="//h1/b[contains(text(),'Cardiorespiratory Conditions')]/..")
 	public WebElement cCARDIOValue;
 	
@@ -146,6 +149,9 @@ public class CapsAndAlgoValuesPage {
 	
 	@FindBy(xpath="//h1/b[contains(text(),'Detection of Indicators and Vulnerabilities for Emergency Room Trips Scale:')]/..")
 	public WebElement divertScaleValue;
+	
+	@FindBy(xpath="//h1/b[contains(text(),'Age in Years:')]/..")
+	public WebElement sAgeValue;
 	
 	@FindBy(xpath="//h1/b[contains(text(),'Changes in Health, End-stage disease and Symptoms and Signs Scale:')]/..")
 	public WebElement chessScaleValue;

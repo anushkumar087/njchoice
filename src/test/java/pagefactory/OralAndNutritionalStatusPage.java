@@ -2,6 +2,7 @@ package pagefactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import util.OptimizedCommands;
@@ -32,8 +33,23 @@ public class OralAndNutritionalStatusPage {
 	@FindBy(xpath ="//label[contains(text(),'K2c')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iK2c;
 	
+	@FindBy(xpath ="//label[contains(text(),'K2d')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iK2d;
+	
 	@FindBy(xpath ="//label[contains(text(),'K3')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iK3;
+	
+	@FindBy(xpath ="//label[contains(text(),'K4a')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iK4a;
+	
+	@FindBy(xpath ="//label[contains(text(),'K4b')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iK4b;
+	
+	@FindBy(xpath ="//label[contains(text(),'K4c')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iK4c;
+	
+	@FindBy(xpath ="//label[contains(text(),'K4d')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iK4d;
 	
 	@FindBy(xpath ="//label[contains(text(),'L1')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iL1;
@@ -49,6 +65,9 @@ public class OralAndNutritionalStatusPage {
 	
 	@FindBy(xpath ="//label[contains(text(),'L5')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iL5;
+	
+	@FindBy(xpath ="//label[contains(text(),'L6')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iL6;
 	
 	@FindBy(xpath ="//label[contains(text(),'L7')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iL7;
@@ -82,7 +101,10 @@ public class OralAndNutritionalStatusPage {
 		try 
 		{
 			if(oralAndNutritionalStatusPage.SaveAndNextButton.isDisplayed())
+			{
+				new Actions(driver).scrollToElement(oralAndNutritionalStatusPage.SaveAndNextButton).build().perform();
 				oralAndNutritionalStatusPage.SaveAndNextButton.click();
+			}
 			else
 				oralAndNutritionalStatusPage.UpdateButton.click();
 		}

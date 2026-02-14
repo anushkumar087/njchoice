@@ -20,6 +20,9 @@ public class DiseaseDiagnosesPage {
 	@FindBy(xpath ="//label[contains(text(),'I1a')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1a;
 	
+	@FindBy(xpath ="//label[contains(text(),'I1b')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1b;
+	
 	@FindBy(xpath ="//label[contains(text(),'I1c')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1c;
 	
@@ -31,6 +34,12 @@ public class DiseaseDiagnosesPage {
 	
 	@FindBy(xpath ="//label[contains(text(),'I1f')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1f;
+	
+	@FindBy(xpath ="//label[contains(text(),'I1g')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1g;
+	
+	@FindBy(xpath ="//label[contains(text(),'I1h')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1h;
 	
 	@FindBy(xpath ="//label[contains(text(),'I1i')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1i;
@@ -47,6 +56,15 @@ public class DiseaseDiagnosesPage {
 	@FindBy(xpath ="//label[contains(text(),'I1m')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1m;
 	
+	@FindBy(xpath ="//label[contains(text(),'I1n')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1n;
+	
+	@FindBy(xpath ="//label[contains(text(),'I1o')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1o;
+	
+	@FindBy(xpath ="//label[contains(text(),'I1p')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1p;
+	
 	@FindBy(xpath ="//label[contains(text(),'I1q')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1q;
 	
@@ -56,8 +74,26 @@ public class DiseaseDiagnosesPage {
 	@FindBy(xpath ="//label[contains(text(),'I1s')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1s;
 	
+	@FindBy(xpath ="//label[contains(text(),'I1s1')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1s1;
+	
+	@FindBy(xpath ="//label[contains(text(),'I1t')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1t;
+	
 	@FindBy(xpath ="//label[contains(text(),'I1u')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement iI1u;
+	
+	@FindBy(xpath ="//label[contains(text(),'I1v')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1v;
+	
+	@FindBy(xpath ="//label[contains(text(),'I1w')]/ancestor::div[1]/following-sibling::*//input")
+	public WebElement iI1w;
+	
+	@FindBy(xpath ="//label[contains(text(),'I2aa')]/parent::*/..//input")
+	public WebElement iI2aa;
+	
+	@FindBy(xpath ="//label[contains(text(),'I2ab')]/parent::*/..//input")
+	public WebElement iI2ab;
 	
 	@FindBy(xpath="//span[contains(text(),'DISEASE')]//ancestor::div[@part='body']//button[@type='submit' and text()='Save & Next']")
 	public WebElement SaveAndNextButton;
@@ -68,6 +104,13 @@ public class DiseaseDiagnosesPage {
 	@FindBy(xpath="//span[contains(text(),'DISEASE')]//ancestor::div[@part='body']//button[@type='submit' and text()='Update']")
 	public WebElement UpdateButton;
 	
+	public void enterUnnecessaryButMandatoryFields() {
+		OptimizedCommands o = new OptimizedCommands();
+		o.sendKeysWithBuffer(this.iI1v, "0");
+		o.sendKeysWithBuffer(this.iI1w, "0");
+		o.sendKeysWithBuffer(this.iI2aa, "0");
+		o.sendKeysWithBuffer(this.iI2ab, "0");
+	}
 	
 	public void clickEditButtonIfDisplayed(DiseaseDiagnosesPage diseaseDiagnosesPage) 
 	{

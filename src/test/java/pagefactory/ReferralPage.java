@@ -27,6 +27,15 @@ public class ReferralPage {
 	@FindBy(xpath ="//label[contains(text(),'REFERRAL ENTRY DATE')]/following-sibling::input")
 	public WebElement referralEntryDate;
 	
+	@FindBy(xpath ="//label[contains(text(),'A2')]/following-sibling::input")
+	public WebElement iA2;
+	
+	@FindBy(xpath ="//label[contains(text(),'A3')]/following-sibling::input")
+	public WebElement iA3;
+	
+	@FindBy(xpath ="//label[contains(text(),'A3')]/following-sibling::input")
+	public WebElement iA11b;
+	
 	@FindBy(xpath ="//label[contains(text(),'REFERRAL/ASSESSMENT SOURCE')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement referralAssessmentSource;
 	
@@ -48,19 +57,22 @@ public class ReferralPage {
 	@FindBy(xpath="//label[contains(text(),'GENDER IDENTITY')]/parent::div/..//input")
 	public WebElement genderIdentity;
 	
+	@FindBy(xpath="//label[contains(text(),'MARITAL STATUS')]/parent::div/..//input")
+	public WebElement maritalStatus;
+	
 	@FindBy(xpath="//label[contains(text(),'BIRTHDATE')]/following-sibling::input")
 	public WebElement birthdate;
 	
 	@FindBy(xpath="//label[contains(text(),'Social Security Number')]/following-sibling::*//input[@pattern]")
 	public WebElement socialSecurityNumber;
 	
-	@FindBy(xpath="//span[contains(text(),'ASSESSMENT LOCATION')]/ancestor::lightning-accordion//label[contains(text(),'Street Address 1')]/following-sibling::*//input[@required]")
+	@FindBy(xpath="//span[contains(text(),'ASSESSMENT LOCATION')]/ancestor::lightning-accordion//label[contains(text(),'Street Address 1')]/following-sibling::*//input")
 	public WebElement streetAddress1_1;
 	
-	@FindBy(xpath="//span[contains(text(),'ASSESSMENT LOCATION')]/ancestor::lightning-accordion//label[contains(text(),'City')]/following-sibling::*//input[@required]")
+	@FindBy(xpath="//span[contains(text(),'ASSESSMENT LOCATION')]/ancestor::lightning-accordion//label[contains(text(),'City')]/following-sibling::*//input")
 	public WebElement city_1;
 	
-	@FindBy(xpath="//span[contains(text(),'ASSESSMENT LOCATION')]/ancestor::lightning-accordion//label[contains(text(),'State')]/following-sibling::*//input[@required]")
+	@FindBy(xpath="//span[contains(text(),'ASSESSMENT LOCATION')]/ancestor::lightning-accordion//label[contains(text(),'State')]/following-sibling::*//input")
 	public WebElement state_1;
 	
 	@FindBy(xpath="//span[contains(text(),'ASSESSMENT LOCATION')]/ancestor::lightning-accordion//label[contains(text(),'Zip Code')]/following-sibling::*//input")
@@ -69,16 +81,16 @@ public class ReferralPage {
 	@FindBy(xpath="//label[contains(text(),'County')]/ancestor::div[1]/following-sibling::*//input")
 	public WebElement county;
 	
-	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'Street Address 1')]/following-sibling::*//input[@required]")
+	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'Street Address 1')]/following-sibling::*//input")
 	public WebElement streetAddress1_2;
 	
-	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'City')]/following-sibling::*//input[@required]")
+	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'City')]/following-sibling::*//input")
 	public WebElement city_2;
 	
-	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'State')]/following-sibling::*//input[@required]")
+	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'State')]/following-sibling::*//input")
 	public WebElement state_2;
 	
-	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'Zip Code')]/following-sibling::*//input[@required]")
+	@FindBy(xpath="//span[contains(text(),'RESIDENTIAL ADDRESS')]/ancestor::lightning-accordion//label[contains(text(),'Zip Code')]/following-sibling::*//input")
 	public WebElement zipCode_2;
 	
 	@FindBy(xpath="//span[contains(text(),'REFERRAL')]//ancestor::div[@part='body']//button[@type='submit' and text()='Save & Next']")
@@ -139,11 +151,13 @@ public class ReferralPage {
 		command.sendKeysWithBuffer(streetAddress1_1, DataFile.StreetAddress1Value);
 		
 		command.sendKeysWithBuffer(city_1, DataFile.City1Value);
+		command.sendKeysWithBuffer(state_1, DataFile.City1Value);
 		command.sendKeysWithBuffer(zipCode_1, DataFile.ZipCode1Value);
 		command.sendKeysWithBuffer(county, DataFile.CountyValue);
 		
 		command.sendKeysWithBuffer(streetAddress1_2, DataFile.StreetAddress1Value);
 		command.sendKeysWithBuffer(city_2, DataFile.City1Value);
+		command.sendKeysWithBuffer(state_2, DataFile.City1Value);
 		command.sendKeysWithBuffer(zipCode_2, DataFile.ZipCode1Value);
 	}
 	

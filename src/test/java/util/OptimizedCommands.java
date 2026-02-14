@@ -42,6 +42,12 @@ public class OptimizedCommands {
 				});  
 	}
 	
+	public void waitTillElementClickable(WebDriver driver, WebElement element, long sec)
+	{
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(sec));
+	    wait.until(ExpectedConditions.elementToBeClickable(element));
+	}
+	
 	public void waitTillElementDisplayed(WebDriver driver, WebElement element, long sec)
 	{
 		int iter = (int)sec;
@@ -70,7 +76,7 @@ public class OptimizedCommands {
 			try { element.click();}catch(Exception e) {}
 			element.clear();
 			element.sendKeys(keys);
-			try{Thread.sleep(2000);}catch(Exception e) {}
+			try{Thread.sleep(2500);}catch(Exception e) {}
 		}
 	}
 	
@@ -81,7 +87,7 @@ public class OptimizedCommands {
 		{
 	        try
 	        {
-	        	Thread.sleep(1000);
+	        	Thread.sleep(1500);
 	            Alert alert = driver.switchTo().alert();
 	            
 	            if(alert.getText().contains(alertExpectedSubText))
@@ -140,7 +146,7 @@ public class OptimizedCommands {
 	public void waitAfterClickingRefreshOnCapsAndAlgoTab()
 	{
 		// Wait for 3 secs
-		try{Thread.sleep(5000);}catch(Exception e) {}
+		try{Thread.sleep(15000);}catch(Exception e) {}
 	}
 
 	public void selectPresentDate(WebElement dateField, String dateValue, WebDriver driver) {
