@@ -102,7 +102,6 @@ public class OralAndNutritionalStatusPage {
 		{
 			if(oralAndNutritionalStatusPage.SaveAndNextButton.isDisplayed())
 			{
-				new Actions(driver).scrollToElement(oralAndNutritionalStatusPage.SaveAndNextButton).build().perform();
 				oralAndNutritionalStatusPage.SaveAndNextButton.click();
 			}
 			else

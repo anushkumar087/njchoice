@@ -129,8 +129,9 @@ mvn test -Dtestng.suite.xml=src/test/resources/testng_allsectionsdata.xml -Duser
 After test execution, reports are generated in:
 - **TestNG HTML Report (This does not indicate CAPS / SCALES results)**: `target/surefire-reports/index.html`
 - **Excel Report (This is actual report)**: `reports/ComprehensiveTestReport_<timestamp>.xlsx`
+- **AI Generated Report (This is actual report)**: `reports/AI_Analysis_Report_<timestamp>.html`
 
-Open the HTML report in your browser to view detailed test results.
+Open the HTML report in your browser to view detailed test results. Same AI generated report details and logs can also be seen in console.
 
 ---
 

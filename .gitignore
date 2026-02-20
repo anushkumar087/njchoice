@@ -4,3 +4,8 @@
 .project
 .settings
 .vscode/
+ai-analysis/venv/
+ai-analysis/chroma_db/
+.DS_Store
+.env
+**/.env

@@ -1,0 +1,41 @@
+# RAG Framework
+llama-index==0.14.13
+llama-index-core==0.14.13
+llama-index-vector-stores-chroma==0.5.5
+llama-index-embeddings-huggingface==0.6.1
+llama-index-llms-openai==0.6.18
+
+# Vector Database
+chromadb==1.5.0
+
+# Embeddings and Models
+sentence-transformers==5.2.2
+InstructorEmbedding==1.0.1
+transformers==5.1.0
+
+# Model Acceleration and Optimization
+accelerate==1.12.0
+optimum==2.1.0
+
+# Deep Learning Framework
+torch==2.10.0
+
+# Data Processing
+pypdf==6.7.0
+numpy==2.4.2
+pandas==2.3.3
+
+# Machine Learning
+scikit-learn==1.8.0
+
+# API Clients
+openai==2.20.0
+pinecone-client
+
+# Utilities
+pydantic==2.12.5
+python-dotenv==1.2.1
+requests==2.32.5
+
+# Development
+ipython==9.10.0

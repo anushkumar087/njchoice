@@ -231,13 +231,9 @@ public class ComprehensiveTestReportManager {
 		}
 
 		// DEBUG: Print testData map size
-		System.out.println("DEBUG: testData map size = " + (testData != null ? testData.size() : "null"));
-		System.out.println("DEBUG: outputValidationMap size = " + outputValidationMap.size());
 		if (testData != null && testData.size() > 0) {
-			System.out.println("DEBUG: First 5 entries in testData:");
 			int count = 0;
 			for (Map.Entry<String, String> entry : testData.entrySet()) {
-				System.out.println("  " + entry.getKey() + " = " + entry.getValue());
 				if (++count >= 5) break;
 			}
 		}

@@ -53,8 +53,25 @@ public class TestValidationHelper {
 			}
 
 			// Compare expected vs actual
-			boolean matches = expectedValue.startsWith(actualOutput)
+			boolean matches = false;
+			
+			if(outputKey.contains("Body Mass Index"))
+			{
+				// For BMI, allow a small margin of error (e.g., ±0.1) due to decimal precision
+				try {
+					double expectedBMI = Double.parseDouble(expectedValue);
+					double actualBMI = Double.parseDouble(actualOutput);
+					matches = Math.abs(expectedBMI - actualBMI) <= 0.001;
+				} catch (NumberFormatException e) {
+					// If parsing fails, fall back to string comparison
+					matches = expectedValue.startsWith(actualOutput)
+						|| (actualOutput.equals("NA") && expectedValue.startsWith("NA"));
+				}
+			}
+			else{
+				matches = expectedValue.startsWith(actualOutput)
 					|| (actualOutput.equals("NA") && expectedValue.startsWith("NA"));
+			}
 
 			if (matches) {
 				System.out.println(count + ". " + outputKey + ": PASSED [Expected: " + expectedValue + ", Actual: "

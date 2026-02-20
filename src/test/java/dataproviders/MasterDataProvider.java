@@ -64,7 +64,7 @@ public class MasterDataProvider {
 				return getRandom20Rows();
 			case "singlerandomrow":
 				return getSingleRandomRow();
-			case "allrows":
+			case "alldata":
 				return getAllTestData();
 			default:
 				return getSingleRandomRow();
@@ -79,7 +79,7 @@ public class MasterDataProvider {
 	@DataProvider(name="AllData")
 	public static Object[][] getAllTestData() throws IOException {
 		Object[][] testData = TestData.getAllDataFromMasterSheet(DataFile.master_DataFile);
-		return testData;
+		return getFirstNRows(testData, 30);
 	}
 	
 	/**

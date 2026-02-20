@@ -1,0 +1,23 @@
+================================================================================
+TEST EXECUTION LOG - February 20, 2026 at 09:40:43
+================================================================================
+Feb 20, 2026 9:40:47 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find an exact match for CDP version 145, returning the closest version; found: 143; Please update to a Selenium version that supports CDP version 145
+
+╔════════════════════════════════════════════════════════╗
+║  DYNAMIC DATA PROVIDER SELECTION                       ║
+╠════════════════════════════════════════════════════════╣
+║  Selected Type: SingleRandomRow                       ║
+╚════════════════════════════════════════════════════════╝
+
+✓ DataProvider: Returning 1 random rows out of 30 total rows
+
+► Starting Test: testAllSectionsComprehensive
+⊘ Test SKIPPED: testAllSectionsComprehensive
+=========================================================================
+FAILED EXECUTION: Could not login and navigate to NJ Choice Assessment page and all Caps and Scales failed
+
+================================================================================
+TEST EXECUTION COMPLETED
+================================================================================
+

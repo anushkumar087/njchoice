@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Analysis Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .timestamp {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 3px solid #667eea;
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: '🔍';
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .query-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .query-box p {
+            color: #333;
+            font-size: 1.05em;
+        }
+        
+        .response-box {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 25px;
+            border-radius: 5px;
+            line-height: 1.8;
+        }
+        
+        .response-box h2 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .response-box h2:first-child {
+            margin-top: 0;
+        }
+        
+        .response-box p {
+            color: #444;
+            margin-bottom: 15px;
+        }
+        
+        .response-box ul, .response-box ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .response-box li {
+            color: #444;
+            margin-bottom: 8px;
+        }
+        
+        .response-box strong {
+            color: #667eea;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Test Analysis Report</h1>
+            <div class="subtitle">Powered by OpenAI GPT-4o-mini & LlamaIndex</div>
+        </div>
+        
+        <div class="timestamp">
+            <strong>Generated:</strong> February 20, 2026 at 09:06:05
+            <span class="badge">Automated Analysis</span>
+        </div>
+        
+        <div class="content">
+            
+            <div class="section">
+                <div class="section-title" style="border-bottom-color: #764ba2;">AI Analysis Response</div>
+                <div class="response-box">
+                    <ul><li><strong>Execution Timestamp</strong>: February 20, 2026 at 08:17:52</li>
+</ul>
+<ul><li><strong>Data Provider</strong>: Executed 1 random row out of 30 total rows</li>
+</ul>
+<ul><li><strong>Validation Results</strong>: Validations Passed: 39/49</li>
+</ul>
+<ul><li><strong>Pass Rate</strong>: 79.59%</li>
+</ul>
+<ul><li><strong>✅ Passed Scales/CAPs</strong>:</li>
+</ul>  - Cardio-respiratory CAP
+  - aMAPLE Algorithm
+  - sDRS Depression rating scale 0-14 range
+  - Smoking and Drinking CAP
+  - Falls CAP
+  - Dehydration CAP
+  - Pain CAP
+  - Delirium CAP
+  - Aggressive Behaviour Scale 0-12 range
+  - IADL Capacity Hierarchy Scale 0-6 range
+  - sPAIN scale 0-4 range
+  - sCPS scale 0-6 range
+  - Pressure Ulcer CAP
+  - sPUR Scale 0-8 range
+  - Feeding Tube CAP
+  - Behavior CAP
+  - Deafblind Severity Index 0-5 range
+  - Physical Activity Promotion CAP
+  - sCPS2 scale 0-8 range
+  - sADL hierarchy scale 0-6 range
+  - Communication CAP
+  - sADLSF ADL Short Form Scale 0-16 range
+  - sADLLF ADL Long Form Scale 0-28 range
+  - SPAIN1 scale 0-3 range
+  - Body Mass Index (kg/m^2)
+  - Nutrition CAP
+  - Mood CAP
+  - (Brittle) Informal Support CAP
+  - Urinary Incontinence CAP
+  - Social Function CAP
+  - Cognitive CAP
+  - Institutional Risk CAP
+  - Environmental CAP
+  - Prevention CAP
+  - sDIVERT - Divert Scale 1-6 range
+  - sCHESS Scale 0-5 range
+  - Abusive Relationship CAP
+  - aR3H RUG-III/HC GROUP CODE
+  - aNR3H RUG-III/HC GROUP NUMBER
+<ul><li><strong>❌ Failed Scales/CAPs</strong>:</li>
+</ul>  - Communication scale 0-8 range: Expected 0, Actual NA
+  - Clinician Rated Mood Scale: Error due to null expected value
+  - Self Report Mood Scale: Error due to null expected value
+  - xFalls: Error due to null expected value
+  - Composite Mood Scale: Error due to null expected value
+  - ADL-IADL Functional Hierarchy Scale 0-11 range: Expected 0, Actual 9
+  - IADL IMPROVEMENT CAP: Expected 0, Actual 1
+  - Bowel CAP: Expected 0, Actual NA
+  - Self-reliance Index: Expected 0, Actual 3
+  - sAGE Age in years: Expected 56, Actual NA
+<ul><li><strong>Failure Analysis</strong>: </li>
+</ul>  - Several failures were due to null expected values, indicating potential data setup issues.
+  - The ADL-IADL Functional Hierarchy Scale had a significant deviation from expected results.
+<ul><li><strong>Historical Comparison</strong>:</li>
+</ul>  - Consistency of failures across executions is not provided, but specific scales like the ADL-IADL Functional Hierarchy Scale and mood-related scales may require attention if they have failed in previous runs.
+<ul><li><strong>Test Stability</strong>: The test shows a relatively high pass rate, but recurring issues with specific scales suggest areas for improvement.</li>
+</ul>
+<ul><li><strong>Recommendations</strong>:</li>
+</ul>  - Investigate the cause of null expected values for mood-related scales and xFalls.
+  - Review the setup and data for the ADL-IADL Functional Hierarchy Scale.
+  - Analyze historical data to identify patterns in failures for targeted improvements.
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This report was automatically generated from test execution logs using AI-powered analysis.</p>
+            <p style="margin-top: 5px; font-size: 0.9em;">NJChoice Test Automation Framework</p>
+        </div>
+    </div>
+</body>
+</html>

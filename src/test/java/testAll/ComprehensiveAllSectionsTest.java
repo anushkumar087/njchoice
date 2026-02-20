@@ -1,7 +1,14 @@
 package testAll;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -27,10 +34,12 @@ import pagefactory.OralAndNutritionalStatusPage;
 import pagefactory.ReferralPage;
 import pagefactory.SocialSupportPage;
 import listener.ComprehensiveTestListener;
+import report.ComprehensiveTestReportManager;
 import util.AppCommonActions;
 import util.DataFile;
 import util.OptimizedCommands;
 import util.TestValidationHelper;
+import util.TestLogger;
 
 @Listeners(listener.ComprehensiveTestListener.class)
 public class ComprehensiveAllSectionsTest extends Base {
@@ -54,6 +63,9 @@ public class ComprehensiveAllSectionsTest extends Base {
 	CapsAndAlgoValuesPage capsAlgoPage;
 	
 	private Map<String, String> dataMap = new HashMap<>();
+	private static List<String> passedScalesOrCaps = new ArrayList<>();
+	private static List<String> failedScalesOrCaps = new ArrayList<>();
+	private static int loggedInAndNavigatedToNJC = 0;
 	
 	public ComprehensiveAllSectionsTest(String dataFile) {
 		super(dataFile);
@@ -61,23 +73,28 @@ public class ComprehensiveAllSectionsTest extends Base {
 	
 	@BeforeTest
 	public void setUp() {
+		// Start logging to temp_logs.txt
+		TestLogger.startLogging();
+		
 		base = new ComprehensiveAllSectionsTest(DataFile.master_DataFile);
 		commonActions = new AppCommonActions();
 		command = new OptimizedCommands();
 		base.initialize();
 		commonActions.loginToSalesForce(driver);
 		commonActions.navigateToNJChoice(driver);
+		loggedInAndNavigatedToNJC = 1;
 	}
 	
 	@Test(dataProvider="DynamicDataProvider", dataProviderClass=dataproviders.MasterDataProvider.class, priority=1)
-	public void testAllSectionsComprehensive(Object[] rowData) throws Exception {
-		System.out.println("========================================");
-		System.out.println("Starting Comprehensive Test for All Sections");
-		System.out.println("========================================");
+	public void testAllSectionsComprehensive(Object[] rowData) {
+		try {
+			System.out.println("========================================");
+			System.out.println("Starting Comprehensive Test for All Sections");
+			System.out.println("========================================");
 
-		TestValidationHelper.clearFailedOutputColumns();
-		dataMap = TestValidationHelper.populateDataMap(rowData, DataFile.master_DataFile);
-		ComprehensiveTestListener.setTestDataMap(dataMap);
+			TestValidationHelper.clearFailedOutputColumns();
+			dataMap = TestValidationHelper.populateDataMap(rowData, DataFile.master_DataFile);
+			ComprehensiveTestListener.setTestDataMap(dataMap);
 		
 		// // ===== SECTION A: Additional Referral Fields =====
 		System.out.println("Filling Additional Section A: Referral fields...");
@@ -155,7 +172,52 @@ public class ComprehensiveAllSectionsTest extends Base {
 		System.out.println("Validations Passed: " + passedCount + "/" + totalValidations);
 		System.out.println("========================================");
 		
+		// Print passed and failed scales/caps arrays
+		if (passedScalesOrCaps.isEmpty()) {
+			System.out.println("\n⚠️  No Scales/CAPs passed validation (passedScalesOrCaps array is empty)");
+		} else {
+			System.out.println("\n✅ Passed Scales/CAPs (" + passedScalesOrCaps.size() + "):");
+			for (String scale : passedScalesOrCaps) {
+				System.out.println("   - " + scale);
+			}
+		}
+		
+		if (failedScalesOrCaps.isEmpty()) {
+			System.out.println("\n✅ No Scales/CAPs failed validation (failedScalesOrCaps array is empty)");
+		} else {
+			System.out.println("\n❌ Failed Scales/CAPs (" + failedScalesOrCaps.size() + "):");
+			for (String scale : failedScalesOrCaps) {
+				System.out.println("   - " + scale);
+			}
+		}
+		
 		njChoicePage.njChoiceAssessmentTab.click();
+		
+		} catch (Exception e) {
+			System.err.println("\n❌ TEST FAILED WITH EXCEPTION: " + e.getMessage());
+			e.printStackTrace();
+			
+			// Print passed and failed scales/caps arrays even on exception
+			if (passedScalesOrCaps.isEmpty()) {
+				System.out.println("\n⚠️  No Scales/CAPs validated due to issues in execution (passedScalesOrCaps array is empty)");
+			} else {
+				System.out.println("\n✅ Passed Scales/CAPs (" + passedScalesOrCaps.size() + "):");
+				for (String scale : passedScalesOrCaps) {
+					System.out.println("   - " + scale);
+				}
+			}
+			
+			if (failedScalesOrCaps.isEmpty()) {
+				System.out.println("\n✅ No Scales/CAPs validated due to issues in execution (failedScalesOrCaps array is empty)");
+			} else {
+				System.out.println("\n❌ Failed Scales/CAPs (" + failedScalesOrCaps.size() + "):");
+				for (String scale : failedScalesOrCaps) {
+					System.out.println("   - " + scale);
+				}
+			}
+			
+			throw new RuntimeException("Test execution failed", e);
+		}
 	}
 	
 	/**
@@ -416,6 +478,9 @@ public class ComprehensiveAllSectionsTest extends Base {
 		
 		healthConditionsPage.saveOrUpdateAfterEnteringRequiredFields(healthConditionsPage);
 		commonActions.handleAlertsAfterSaveOrUpdateInputsSection(driver, command);
+		
+		try {Thread.sleep(15000);} catch (InterruptedException e) {e.printStackTrace();}
+        
 	}
 	
 	/**
@@ -582,6 +647,10 @@ public class ComprehensiveAllSectionsTest extends Base {
 	 * @return int[] array where [0] = passed count, [1] = failed count
 	 */
 	private int[] validateAllOutputs() {
+		// Clear the arrays at the start of validation
+		passedScalesOrCaps.clear();
+		failedScalesOrCaps.clear();
+		
 		// Navigate to CAPS and Algo tab and refresh values
 		capsAlgoPage = commonActions.navigateToCapsAndAlgoTabAndRefreshValues(driver, njChoicePage, command, capsAlgoPage);
 		
@@ -589,202 +658,301 @@ public class ComprehensiveAllSectionsTest extends Base {
 		int passedCount = 0;
 		Map<String, Integer> outputValidationMap = new HashMap<>();
 		int result;
+		String capName;
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.cCARDIOValue, "Cardio-respiratory CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Cardio-respiratory CAP", result);
+		capName = "Cardio-respiratory CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.cCARDIOValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.aMAPLEvalue, "aMAPLE Algorithm", dataMap, ++validationCount);
-		outputValidationMap.put("aMAPLE Algorithm", result);
+		capName = "aMAPLE Algorithm";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.aMAPLEvalue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.sDRSValue, "sDRS Depression rating scale 0-14 range", dataMap, ++validationCount);
-		outputValidationMap.put("sDRS Depression rating scale 0-14 range", result);
+		capName = "sDRS Depression rating scale 0-14 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.sDRSValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.smokingAndDrinkingValue, "Smoking and Drinking CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Smoking and Drinking CAP", result);
+		capName = "Smoking and Drinking CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.smokingAndDrinkingValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.fallsValue, "Falls CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Falls CAP", result);
+		capName = "Falls CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.fallsValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.sCommValue, "Communication scale 0-8 range", dataMap, ++validationCount);
-		outputValidationMap.put("Communication scale 0-8 range", result);
+		capName = "Communication scale 0-8 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.sCommValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.dehydrationValue, "Dehydration CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Dehydration CAP", result);
+		capName = "Dehydration CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.dehydrationValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.painValue, "Pain CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Pain CAP", result);
+		capName = "Pain CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.painValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.deliriumValue, "Delirium CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Delirium CAP", result);
+		capName = "Delirium CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.deliriumValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.aggressiveBehaviorValue, "Aggressive Behaviour Scale 0-12 range", dataMap, ++validationCount);
-		outputValidationMap.put("Aggressive Behaviour Scale 0-12 range", result);
+		capName = "Aggressive Behaviour Scale 0-12 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.aggressiveBehaviorValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.clinicianRatedMoodValue, "Clinician Rated Mood Scale", dataMap, ++validationCount);
-		outputValidationMap.put("Clinician Rated Mood Scale", result);
+		capName = "Clinician Rated Mood Scale";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.clinicianRatedMoodValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.selfReportMoodScale, "Self Report Mood Scale", dataMap, ++validationCount);
-		outputValidationMap.put("Self Report Mood Scale", result);
+		capName = "Self Report Mood Scale";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.selfReportMoodScale, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.iadlCapacityHierarchyScale, "IADL Capacity Hierarchy Scale 0-6 range", dataMap, ++validationCount);
-		outputValidationMap.put("IADL Capacity Hierarchy Scale 0-6 range", result);
+		capName = "IADL Capacity Hierarchy Scale 0-6 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.iadlCapacityHierarchyScale, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.fallsScale, "xFalls", dataMap, ++validationCount);
-		outputValidationMap.put("xFalls", result);
+		capName = "xFalls";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.fallsScale, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.painScale, "sPAIN scale 0-4 range", dataMap, ++validationCount);
-		outputValidationMap.put("sPAIN scale 0-4 range", result);
+		capName = "sPAIN scale 0-4 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.painScale, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.cognitivePerformanceScale, "sCPS scale 0-6 range", dataMap, ++validationCount);
-		outputValidationMap.put("sCPS scale 0-6 range", result);
+		capName = "sCPS scale 0-6 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.cognitivePerformanceScale, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.pressureUlcerCapValue, "Pressure Ulcer CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Pressure Ulcer CAP", result);
+		capName = "Pressure Ulcer CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.pressureUlcerCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.pressureUlcerRatingScaleValue, "sPUR Scale 0-8 range", dataMap, ++validationCount);
-		outputValidationMap.put("sPUR Scale 0-8 range", result);
+		capName = "sPUR Scale 0-8 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.pressureUlcerRatingScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.feedingTubeCapsValue, "Feeding Tube CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Feeding Tube CAP", result);
+		capName = "Feeding Tube CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.feedingTubeCapsValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.behaviorCapsValue, "Behavior CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Behavior CAP", result);
+		capName = "Behavior CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.behaviorCapsValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.deafblindSeverityIndexValue, "Deafblind Severity Index 0-5 range", dataMap, ++validationCount);
-		outputValidationMap.put("Deafblind Severity Index 0-5 range", result);
+		capName = "Deafblind Severity Index 0-5 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.deafblindSeverityIndexValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.compositeMoodScaleValue, "Composite Mood Scale", dataMap, ++validationCount);
-		outputValidationMap.put("Composite Mood Scale", result);
+		capName = "Composite Mood Scale";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.compositeMoodScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.physicalActivityPromotionValue, "Physical Activity Promotion CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Physical Activity Promotion CAP", result);
+		capName = "Physical Activity Promotion CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.physicalActivityPromotionValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.cognitivePerformanceScale2Value, "sCPS2 scale 0-8 range", dataMap, ++validationCount);
-		outputValidationMap.put("sCPS2 scale 0-8 range", result);
+		capName = "sCPS2 scale 0-8 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.cognitivePerformanceScale2Value, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.adlHierarchyScaleValue, "sADL hierarchy scale 0-6 range", dataMap, ++validationCount);
-		outputValidationMap.put("sADL hierarchy scale 0-6 range", result);
+		capName = "sADL hierarchy scale 0-6 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.adlHierarchyScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.communicationCapsValue, "Communication CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Communication CAP", result);
+		capName = "Communication CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.communicationCapsValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.adlsfScaleValue, "sADLSF ADL Short Form Scale 0-16 range", dataMap, ++validationCount);
-		outputValidationMap.put("sADLSF ADL Short Form Scale 0-16 range", result);
+		capName = "sADLSF ADL Short Form Scale 0-16 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.adlsfScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.adllfScaleValue, "sADLLF ADL Long Form Scale 0-28 range", dataMap, ++validationCount);
-		outputValidationMap.put("sADLLF ADL Long Form Scale 0-28 range", result);
+		capName = "sADLLF ADL Long Form Scale 0-28 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.adllfScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.pain1ScaleValue, "SPAIN1 scale 0-3 range", dataMap, ++validationCount);
-		outputValidationMap.put("SPAIN1 scale 0-3 range", result);
+		capName = "SPAIN1 scale 0-3 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.pain1ScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.bmiScaleValue, "Body Mass Index (kg/m^2)", dataMap, ++validationCount);
-		outputValidationMap.put("Body Mass Index (kg/m^2)", result);
+		capName = "Body Mass Index (kg/m^2)";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.bmiScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.functionalHierarchyScaleValue, "ADL-IADL Functional Hierarchy Scale 0-11 range", dataMap, ++validationCount);
-		outputValidationMap.put("ADL-IADL Functional Hierarchy Scale 0-11 range", result);
+		capName = "ADL-IADL Functional Hierarchy Scale 0-11 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.functionalHierarchyScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.underNutritionCapValue, "Nutrition CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Nutrition CAP", result);
+		capName = "Nutrition CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.underNutritionCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.moodCapValue, "Mood CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Mood CAP", result);
+		capName = "Mood CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.moodCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.informalSupportValue, "(Brittle) Informal Suppport CAP", dataMap, ++validationCount);
-		outputValidationMap.put("(Brittle) Informal Suppport CAP", result);
+		capName = "(Brittle) Informal Suppport CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.informalSupportValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.urinaryIncontinenceValue, "Urinary Incontinence CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Urinary Incontinence CAP", result);
+		capName = "Urinary Incontinence CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.urinaryIncontinenceValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.iadlImprovementCapValue, "IADL IMPROVEMENT CAP", dataMap, ++validationCount);
-		outputValidationMap.put("IADL IMPROVEMENT CAP", result);
+		capName = "IADL IMPROVEMENT CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.iadlImprovementCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.bowelCapValue, "Bowel CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Bowel CAP", result);
+		capName = "Bowel CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.bowelCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.socialRelationshipsCapValue, "Social Function CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Social Function CAP", result);
+		capName = "Social Function CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.socialRelationshipsCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.cognitiveCapValue, "Cognitive CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Cognitive CAP", result);
+		capName = "Cognitive CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.cognitiveCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.institutionalRiskCapValue, "Institutional Risk CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Institutional Risk CAP", result);
+		capName = "Institutional Risk CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.institutionalRiskCapValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.careScaleValue, "Self-reliance Index", dataMap, ++validationCount);
-		outputValidationMap.put("Self-reliance Index", result);
+		capName = "Self-reliance Index";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.careScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.environmentalCapsValue, "Environmental CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Environmental CAP", result);
+		capName = "Environmental CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.environmentalCapsValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.preventionCapsValue, "Prevention CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Prevention CAP", result);
+		capName = "Prevention CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.preventionCapsValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.divertScaleValue, "sDIVERT - Divert Scale 1-6 range", dataMap, ++validationCount);
-		outputValidationMap.put("sDIVERT - Divert Scale 1-6 range", result);
+		capName = "sDIVERT - Divert Scale 1-6 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.divertScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.sAgeValue, "sAGE Age in years", dataMap, ++validationCount);
-		outputValidationMap.put("sAGE Age in years", result);
+		capName = "sAGE Age in years";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.sAgeValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.chessScaleValue, "sCHESS Scale 0-5 range", dataMap, ++validationCount);
-		outputValidationMap.put("sCHESS Scale 0-5 range", result);
+		capName = "sCHESS Scale 0-5 range";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.chessScaleValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.abusiveRelationshipCapsValue, "Abusive Relationship CAP", dataMap, ++validationCount);
-		outputValidationMap.put("Abusive Relationship CAP", result);
+		capName = "Abusive Relationship CAP";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.abusiveRelationshipCapsValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.rug3aR3hValue, "aR3H RUG-III/HC GROUP CODE", dataMap, ++validationCount);
-		outputValidationMap.put("aR3H RUG-III/HC GROUP CODE", result);
+		capName = "aR3H RUG-III/HC GROUP CODE";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.rug3aR3hValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		
-		result = TestValidationHelper.validateOutput(capsAlgoPage.rug3aNR3hValue, "aNR3H RUG-III/HC GROUP NUMBER", dataMap, ++validationCount);
-		outputValidationMap.put("aNR3H RUG-III/HC GROUP NUMBER", result);
+		capName = "aNR3H RUG-III/HC GROUP NUMBER";
+		result = TestValidationHelper.validateOutput(capsAlgoPage.rug3aNR3hValue, capName, dataMap, ++validationCount);
+		outputValidationMap.put(capName, result);
 		passedCount += result;
+		if (result == 1) passedScalesOrCaps.add(capName); else failedScalesOrCaps.add(capName);
 		// Note: ADL CAP and Age need to be added to CapsAndAlgoValuesPage if locators exist
 		
 		int failedCount = validationCount - passedCount;
@@ -843,10 +1011,143 @@ public class ComprehensiveAllSectionsTest extends Base {
 		}
     }
 	
-	@AfterTest
+	@AfterTest(alwaysRun = true)
 	public void tearDown() {
-		if (driver != null) {
-			driver.quit();
+		try {
+			if(loggedInAndNavigatedToNJC==0)
+			{
+				System.out.println("=========================================================================");
+				System.out.println("FAILED EXECUTION: Could not login and navigate to NJ Choice Assessment page and all Caps and Scales failed");
+			}
+			String separator = "================================================================================";
+			System.out.println("\n" + separator);
+			System.out.println("TEST EXECUTION COMPLETED");
+			System.out.println(separator + "\n");
+			
+			// Stop logging
+			TestLogger.stopLogging();
+
+			try {Thread.sleep(3000);} catch (InterruptedException e) {}
+			
+			// Run embeddings.py to create embeddings from logs
+			System.out.println("\n🔄 Creating AI embeddings from test logs...");
+			runPythonScript("embeddings.py");
+
+			try {Thread.sleep(3000);} catch (InterruptedException e) {}
+			
+			// Run analysis.py to get AI analysis
+			System.out.println("\n🤖 Generating AI Analysis of Test Execution...");
+			//runPythonScript("analysis.py");
+			String reportTimestamp = ComprehensiveTestReportManager.getReportFilePath();
+			if (reportTimestamp != null) {
+				// Extract timestamp from report filename (e.g., "ComprehensiveTestReport_16_02_2026__20_14_53.xlsx")
+				int lastSlash = reportTimestamp.lastIndexOf("/");
+				int lastDot = reportTimestamp.lastIndexOf(".xlsx");
+				if (lastSlash >= 0 && lastDot > lastSlash) {
+					String filename = reportTimestamp.substring(lastSlash + 1, lastDot);
+					String timestamp = filename.replace("ComprehensiveTestReport_", "");
+					runPythonScriptWithArgs("analysis.py", timestamp);
+				} else {
+					runPythonScript("analysis.py");
+				}
+			} else {
+				runPythonScript("analysis.py");
+			}
+			
+		} catch (Exception e) {
+			System.err.println("⚠️  Error during teardown: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			// Always close browser, even if other teardown steps fail
+			if (driver != null) {
+				try {
+					driver.quit();
+				} catch (Exception e) {
+					System.err.println("⚠️  Error closing browser: " + e.getMessage());
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Helper method to run Python scripts from ai-analysis folder
+	 */
+	private void runPythonScript(String scriptName) {
+		try {
+			String projectDir = System.getProperty("user.dir");
+			String aiAnalysisDir = projectDir + "/ai-analysis";
+			String pythonPath = aiAnalysisDir + "/venv/bin/python3";
+			String scriptPath = aiAnalysisDir + "/" + scriptName;
+			
+			ProcessBuilder pb = new ProcessBuilder(pythonPath, scriptPath);
+			pb.directory(new java.io.File(aiAnalysisDir));
+			pb.redirectErrorStream(true);
+			
+			Process process = pb.start();
+			
+			// Read and print output
+			BufferedReader reader = new BufferedReader(
+				new InputStreamReader(process.getInputStream())
+			);
+			
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+			
+			int exitCode = process.waitFor();
+			if (exitCode != 0) {
+				System.err.println("⚠️  Warning: " + scriptName + " exited with code " + exitCode);
+			}
+			
+		} catch (Exception e) {
+			System.err.println("❌ Error running " + scriptName + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Helper method to run Python scripts with arguments from ai-analysis folder
+	 */
+	private void runPythonScriptWithArgs(String scriptName, String... args) {
+		try {
+			String projectDir = System.getProperty("user.dir");
+			String aiAnalysisDir = projectDir + "/ai-analysis";
+			String pythonPath = aiAnalysisDir + "/venv/bin/python3";
+			String scriptPath = aiAnalysisDir + "/" + scriptName;
+			
+			// Build command with arguments
+			List<String> command = new ArrayList<>();
+			command.add(pythonPath);
+			command.add(scriptPath);
+			for (String arg : args) {
+				command.add(arg);
+			}
+			
+			ProcessBuilder pb = new ProcessBuilder(command);
+			pb.directory(new java.io.File(aiAnalysisDir));
+			pb.redirectErrorStream(true);
+			
+			Process process = pb.start();
+			
+			// Read and print output
+			BufferedReader reader = new BufferedReader(
+				new InputStreamReader(process.getInputStream())
+			);
+			
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+			
+			int exitCode = process.waitFor();
+			if (exitCode != 0) {
+				System.err.println("⚠️  Warning: " + scriptName + " exited with code " + exitCode);
+			}
+			
+		} catch (Exception e) {
+			System.err.println("❌ Error running " + scriptName + ": " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }

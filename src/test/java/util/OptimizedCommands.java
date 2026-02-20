@@ -57,7 +57,6 @@ public class OptimizedCommands {
 			try {
 				Thread.sleep(1000);
 				element.isDisplayed();
-				System.out.println("i = "+i);
 				break;
 			}
 			catch(Exception e) {
@@ -159,7 +158,6 @@ public class OptimizedCommands {
 		int dateYpos = dateField.getLocation().getY();
 		Actions actions = new Actions(driver);
 		
-		System.out.println("dateXpos: "+dateXpos+", dateYpos: "+(dateYpos-pageTopPosY)+", pageTopPosY: "+(pageTopPosY));
 		
 //		actions.moveByOffset(dateXpos, dateYpos-pageTopPosY).build().perform();
 		actions.moveToElement(dateField).build().perform();
